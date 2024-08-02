@@ -44,7 +44,7 @@
                         <span>
                             <i class="ti ti-category-2"></i>
                         </span>
-                        <span class="hide-menu">Category</span>
+                        <span class="hide-menu">Laporan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

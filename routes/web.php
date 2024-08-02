@@ -48,6 +48,13 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::put('/admin/notaris/{id}/update', [NotarisController::class, 'update'])->name('admin.notaris.update');
     Route::delete('/admin/notaris/{id}/delete', [NotarisController::class, 'destroy'])->name('admin.notaris.delete');
 
+    Route::get('/admin/laporan', [LaporanController::class, 'index'])->name('admin.notaris');
+    Route::get('/admin/laporan/add', [LaporanController::class, 'create'])->name('admin.notaris.create');
+    Route::post('/admin/laporan/store', [LaporanController::class, 'store'])->name('admin.laporan.store');
+    Route::get('/admin/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('admin.laporan.edit');
+    Route::put('/admin/laporan/{id}/update', [LaporanController::class, 'update'])->name('admin.laporan.update');
+    Route::delete('/admin/laporan/{id}/delete', [LaporanController::class, 'destroy'])->name('admin.laporan.delete');
+
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('/admin/category/add', [CategoryController::class, 'create'])->name('admin.category.create');
     Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('admin.category.store');

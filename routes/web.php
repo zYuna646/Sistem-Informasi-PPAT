@@ -43,74 +43,44 @@ Auth::routes([
 Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/admin/notaris', [NotarisController::class, 'index'])->name('admin.notaris');
+    Route::get('/admin/notaris', [NotarisController::class, 'show'])->name('admin.notaris');
     Route::get('/admin/notaris/add', [NotarisController::class, 'create'])->name('admin.notaris.create');
     Route::post('/admin/notaris/store', [NotarisController::class, 'store'])->name('admin.notaris.store');
     Route::get('/admin/notaris/{id}/edit', [NotarisController::class, 'edit'])->name('admin.notaris.edit');
     Route::put('/admin/notaris/{id}/update', [NotarisController::class, 'update'])->name('admin.notaris.update');
     Route::delete('/admin/notaris/{id}/delete', [NotarisController::class, 'destroy'])->name('admin.notaris.delete');
 
-    Route::get('/admin/pelaporan', [PelaporanController::class, 'index'])->name('admin.pelaporan');
+    Route::get('/admin/pelaporan', [PelaporanController::class, 'show'])->name('admin.pelaporan');
     Route::get('/admin/pelaporan/add', [PelaporanController::class, 'create'])->name('admin.pelaporan.create');
     Route::post('/admin/pelaporan/store', [PelaporanController::class, 'store'])->name('admin.pelaporan.store');
     Route::get('/admin/pelaporan/{id}/edit', [PelaporanController::class, 'edit'])->name('admin.pelaporan.edit');
     Route::put('/admin/pelaporan/{id}/update', [PelaporanController::class, 'update'])->name('admin.pelaporan.update');
     Route::delete('/admin/pelaporan/{id}/delete', [PelaporanController::class, 'destroy'])->name('admin.pelaporan.delete');
 
-    Route::get('/admin/laporan', [LaporanController::class, 'index'])->name('admin.laporan');
-    Route::get('/admin/laporan/add', [LaporanController::class, 'create'])->name('admin.laporan.create');
-    Route::post('/admin/laporan/store', [LaporanController::class, 'store'])->name('admin.laporan.store');
-    Route::get('/admin/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('admin.laporan.edit');
-    Route::put('/admin/laporan/{id}/update', [LaporanController::class, 'update'])->name('admin.laporan.update');
-    Route::delete('/admin/laporan/{id}/delete', [LaporanController::class, 'destroy'])->name('admin.laporan.delete');
-
-    Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin.category');
-    Route::get('/admin/category/add', [CategoryController::class, 'create'])->name('admin.category.create');
-    Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('admin.category.store');
-    Route::get('/admin/category/{id}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
-    Route::put('/admin/category/{id}/update', [CategoryController::class, 'update'])->name('admin.category.update');
-    Route::delete('/admin/category/{id}/delete', [CategoryController::class, 'destroy'])->name('admin.category.delete');
-
-    Route::get('/admin/catalog', [CatalogController::class, 'index'])->name('admin.catalog');
-    Route::get('/admin/catalog/add', [CatalogController::class, 'create'])->name('admin.catalog.create');
-    Route::post('/admin/catalog/store', [CatalogController::class, 'store'])->name('admin.catalog.store');
-    Route::get('/admin/catalog/{id}/show', [CatalogController::class, 'show'])->name('admin.catalog.show');
-    Route::get('/admin/catalog/{id}/edit', [CatalogController::class, 'edit'])->name('admin.catalog.edit');
-    Route::put('/admin/catalog/{id}/update', [CatalogController::class, 'update'])->name('admin.catalog.update');
-    Route::delete('/admin/catalog/{id}/delete', [CatalogController::class, 'destroy'])->name('admin.catalog.delete');
-    Route::delete('/admin/catalog/{id}/delete-image', [CatalogController::class, 'destroyImage'])->name('admin.catalog.delete-image');
-
-    Route::get('/admin/gallery', [CatalogController::class, 'gallery'])->name('admin.gallery');
-
-
-    Route::get('/admin/video', [VideoController::class, 'index'])->name('admin.video');
-    Route::get('/admin/video/add', [VideoController::class, 'create'])->name('admin.video.create');
-    Route::post('/admin/video/store', [VideoController::class, 'store'])->name('admin.video.store');
-    Route::delete('/admin/video/{id}/delete', [VideoController::class, 'destroy'])->name('admin.video.delete');
-
-    Route::get('/admin/information', [InformationController::class, 'index'])->name('admin.information');
-    Route::get('/admin/information/add', [InformationController::class, 'create'])->name('admin.information.create');
-    Route::post('/admin/information/store', [InformationController::class, 'store'])->name('admin.information.store');
-    Route::delete('/admin/information/{id}/delete', [InformationController::class, 'destroy'])->name('admin.information.delete');
-
-    Route::get('/admin/main-slider', [MainSliderController::class, 'index'])->name('admin.main-slider');
-    Route::get('/admin/main-slider/add', [MainSliderController::class, 'create'])->name('admin.main-slider.create');
-    Route::post('/admin/main-slider/store', [MainSliderController::class, 'store'])->name('admin.main-slider.store');
-    Route::get('/admin/main-slider/{id}/edit', [MainSliderController::class, 'edit'])->name('admin.main-slider.edit');
-    Route::put('/admin/main-slider/{id}/update', [MainSliderController::class, 'update'])->name('admin.main-slider.update');
-    Route::delete('/admin/main-slider/{id}/delete', [MainSliderController::class, 'destroy'])->name('admin.main-slider.delete');
-
-    Route::get('/admin/review-slider', [ReviewSliderController::class, 'index'])->name('admin.review-slider');
-    Route::get('/admin/review-slider/add', [ReviewSliderController::class, 'create'])->name('admin.review-slider.create');
-    Route::post('/admin/review-slider/store', [ReviewSliderController::class, 'store'])->name('admin.review-slider.store');
-    Route::get('/admin/review-slider/{id}/edit', [ReviewSliderController::class, 'edit'])->name('admin.review-slider.edit');
-    Route::put('/admin/review-slider/{id}/update', [ReviewSliderController::class, 'update'])->name('admin.review-slider.update');
-    Route::delete('/admin/review-slider/{id}/delete', [ReviewSliderController::class, 'destroy'])->name('admin.review-slider.delete');
-
-    Route::get('/admin/about-us', [AboutUsController::class, 'index'])->name('admin.about-us');
-    Route::put('/admin/about-us/{id}/update', [AboutUsController::class, 'update'])->name('admin.about-us.update');
+    Route::get('/admin/laporan/{id}', [LaporanController::class, 'show'])->name('admin.laporan');
 
     Route::get('/admin/account-setting', [AdminController::class, 'accountSetting'])->name('admin.account-setting');
     Route::put('/admin/change-password/{id}', [AdminController::class, 'changePassword'])->name('admin.change-password');
     Route::put('/admin/change-information/{id}', [AdminController::class, 'changeInformation'])->name('admin.change-information');
 });
+
+Route::middleware(['auth', 'login-check'])->group(function () {
+    Route::get('/notaris', [NotarisController::class, 'index'])->name('notaris.dashboard');
+
+    Route::get('/notaris/pelaporan', [PelaporanController::class, 'showByNotaris'])->name('notaris.pelaporan');
+    Route::get('/notaris/pelaporan/add', [PelaporanController::class, 'createByNotaris'])->name('notaris.pelaporan.create');
+    Route::post('/notaris/pelaporan/store', [PelaporanController::class, 'storeByNotaris'])->name('notaris.pelaporan.store');
+    Route::get('/notaris/pelaporan/{id}/edit', [PelaporanController::class, 'editByNotaris'])->name('notaris.pelaporan.edit');
+    Route::put('/notaris/pelaporan/{id}/update', [PelaporanController::class, 'updateByNotaris'])->name('notaris.pelaporan.update');
+    Route::delete('/notaris/pelaporan/{id}/delete', [PelaporanController::class, 'destroyByNotaris'])->name('notaris.pelaporan.delete');
+
+    Route::get('/notaris/laporan/{id}', [LaporanController::class, 'showByNotaris'])->name('notaris.laporan');
+    Route::get('/notaris/laporan/{id}/edit', [LaporanController::class, 'editByNotaris'])->name('notaris.laporan.edit');
+    Route::put('/notaris/laporan/{id}/update', [LaporanController::class, 'updateByNotaris'])->name('notaris.laporan.update');
+    Route::get('/notaris/laporan/{id}/detail', [LaporanController::class, 'detailByNotaris'])->name('notaris.laporan.detail');
+
+    Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
+    Route::put('/notaris/change-password/{id}', [NotarisController::class, 'changePassword'])->name('notaris.change-password');
+    Route::put('/notaris/change-information/{id}', [NotarisController::class, 'changeInformation'])->name('notaris.change-information');
+});
+

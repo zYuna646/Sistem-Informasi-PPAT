@@ -121,9 +121,6 @@
                                 <h5 class="card-title fw-semibold">Latest Products</h5>
                                 <p class="card-subtitle mb-0">Five latest products</p>
                             </div>
-                            <div>
-                                <a href="{{ route('admin.catalog') }}" class="btn btn-sm btn-light-primary">See More</a>
-                            </div>
                         </div>
                         <div>
                             @if (count($latest_products) > 0)
@@ -156,9 +153,7 @@
                                             style="font-size: 16px;">
                                             <i class="ti ti-alert-circle"></i>
                                         </span>
-                                        <p class="mb-0">
-                                            No product data yet. <a href="{{ route('admin.catalog.create') }}">Add</a> now.
-                                        </p>
+                                       
                                     </div>
                                 </div>
                             @endif
@@ -175,9 +170,7 @@
                             <div class="mb-3 mb-sm-0">
                                 <h5 class="card-title fw-semibold mb-0">Latest Video</h5>
                             </div>
-                            <div>
-                                <a href="{{ route('admin.video') }}" class="btn btn-sm btn-light-primary">See More</a>
-                            </div>
+                        
                         </div>
                         <div>
                             @if ($latest_video != null)
@@ -191,9 +184,7 @@
                                             style="font-size: 16px;">
                                             <i class="ti ti-alert-circle"></i>
                                         </span>
-                                        <p class="mb-0">
-                                            No video data yet. <a href="{{ route('admin.video.create') }}">Add</a> now.
-                                        </p>
+                                       
                                     </div>
                                 </div>
                             @endif

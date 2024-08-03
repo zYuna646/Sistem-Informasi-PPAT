@@ -69,6 +69,7 @@
             <th>Nomor Akta</th>
             <th>Tanggal Akta</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +80,14 @@
             <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
               }}</td>
             <td>{{ $result->status }}</td>
+            <td>
+              <a href="{{ route('notaris.laporan.edit', $result->id) }}" class="btn btn-sm btn-warning">
+                <i class="ti ti-pencil"></i>
+              </a>
+              <a href="{{ route('notaris.laporan.detail', $result->id) }}" class="btn btn-sm btn-info">
+                <i class="ti ti-eye"></i>
+              </a>
+            </td>
           </tr>
           @endforeach
         </tbody>

@@ -91,9 +91,9 @@
           </div>
           <div class="mb-3">
             <label class="control-label mb-1">Jabatan</label>
-            <input type="text" name="notaris_jabatan"
+            <select type="text" name="notaris_jabatan"
               class="form-control @error('notaris_jabatan') is-invalid @enderror" placeholder="..."
-              value="{{ old('notaris_jabatan') }}" />
+              value="{{ old('notaris_jabatan') }}"></select>
             @error('notaris_jabatan')
             <small class="invalid-feedback">
               {{ $message }}

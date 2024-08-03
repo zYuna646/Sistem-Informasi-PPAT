@@ -10,7 +10,7 @@
           <a href="{{ route('admin.dashboard') }}" class="text-muted">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{{ route('admin.category') }}" class="text-muted">{{ $title ?? '' }}</a>
+          <a href="{{ route('admin.notaris') }}" class="text-muted">{{ $title ?? '' }}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ $subtitle ?? '' }}</li>
       </ol>

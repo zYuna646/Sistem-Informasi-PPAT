@@ -29,8 +29,14 @@
           <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
         </div>
       </div>
-      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-        <a href="{{ route('admin.notaris.create') }}" class="btn btn-info d-flex align-items-center">
+      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
+        <a href="{{ route('admin.laporan.create') }}" class="btn btn-warning d-flex align-items-center">
+          <i class="ti ti-photo text-white me-1 fs-5"></i> OCR
+        </a>
+        <a href="{{ route('admin.laporan.create') }}" class="btn btn-warning d-flex align-items-center">
+          <i class="ti ti-file text-white me-1 fs-5"></i> Export
+        </a>
+        <a href="{{ route('admin.laporan.create') }}" class="btn btn-info d-flex align-items-center">
           <i class="ti ti-plus text-white me-1 fs-5"></i> Add {{ $title ?? '' }}
         </a>
       </div>
@@ -63,10 +69,9 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nama</th>
-            <th>Jabatan</th>
-            <th>Nomor Telp</th>
-            <th>Email</th>
+            <th>Nomor Akta</th>
+            <th>Tanggal Akta</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -74,15 +79,15 @@
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $result->user->name }}</td>
-            <td>{{ $result->jabatan }}</td>
-            <td>{{ $result->telepon }}</td>
-            <td>{{ $result->user->email }}</td>
+            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
+            <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
+              }}</td>
+            <td>{{ $result->status }}</td>
             <td>
-              <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-warning">
+              <a href="{{ route('admin.laporan.edit', $result->id) }}" class="btn btn-sm btn-warning">
                 <i class="ti ti-pencil"></i>
               </a>
-              <form action="{{ route('admin.' . $active . '.delete', $result->id) }}" method="post" class="d-inline">
+              <form action="{{ route('admin.laporan.delete', $result->id) }}" method="post" class="d-inline">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">

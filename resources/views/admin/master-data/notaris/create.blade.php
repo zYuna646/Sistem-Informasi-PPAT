@@ -24,8 +24,8 @@
     <div class="card-body">
       <h5 class="mb-3">{{ $subtitle }} Form</h5>
       <div class="row">
-        <div class="col-12 mb-2">
-          <div>
+        <div class="col-12">
+          <div class="mb-3">
             <label class="control-label mb-1">Nama lengkap</label>
             <input type="text" name="notaris_name" class="form-control @error('notaris_name') is-invalid @enderror"
               placeholder="..." value="{{ old('notaris_name') }}" />
@@ -35,45 +35,40 @@
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Nomor ijin</label>
-            <input type="text" name="notaris_no_ijin" class="form-control @error('notaris_no_ijin') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_no_ijin') }}" />
+            <input type="text" name="notaris_no_ijin"
+              class="form-control @error('notaris_no_ijin') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_no_ijin') }}" />
             @error('notaris_no_ijin')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Alamat</label>
-            <textarea type="text" name="notaris_alamat" class="form-control @error('notaris_alamat') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_alamat') }}"></textarea>
+            <textarea type="text" name="notaris_alamat"
+              class="form-control @error('notaris_alamat') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_alamat') }}"></textarea>
             @error('notaris_alamat')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">No Telp</label>
-            <input type="text" name="notaris_no_telp" class="form-control @error('notaris_no_telp') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_no_telp') }}" />
+            <input type="text" name="notaris_no_telp"
+              class="form-control @error('notaris_no_telp') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_no_telp') }}" />
             @error('notaris_no_telp')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Email</label>
             <input type="email" name="notaris_email" class="form-control @error('notaris_email') is-invalid @enderror"
               placeholder="..." value="{{ old('notaris_email') }}" />
@@ -83,48 +78,44 @@
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Password</label>
-            <input type="password" name="notaris_password" class="form-control @error('notaris_password') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_password') }}" />
+            <input type="password" name="notaris_password"
+              class="form-control @error('notaris_password') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_password') }}" />
             @error('notaris_password')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Jabatan</label>
-            <input type="text" name="notaris_jabatan" class="form-control @error('notaris_jabatan') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_jabatan') }}" />
+            <input type="text" name="notaris_jabatan"
+              class="form-control @error('notaris_jabatan') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_jabatan') }}" />
             @error('notaris_jabatan')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Wilayah Kerja</label>
-            <input type="text" name="notaris_wilayah" class="form-control @error('notaris_wilayah') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_wilayah') }}" />
+            <input type="text" name="notaris_wilayah"
+              class="form-control @error('notaris_wilayah') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_wilayah') }}" />
             @error('notaris_wilayah')
             <small class="invalid-feedback">
               {{ $message }}
             </small>
             @enderror
           </div>
-        </div>
-        <div class="col-12 mb-2">
-          <div>
+          <div class="mb-3">
             <label class="control-label mb-1">Tanggal Izin Diterbitkan</label>
-            <input type="date" name="notaris_ijin_terbit" class="form-control @error('notaris_ijin_terbit') is-invalid @enderror"
-              placeholder="..." value="{{ old('notaris_ijin_terbit') }}" />
+            <input type="date" name="notaris_ijin_terbit"
+              class="form-control @error('notaris_ijin_terbit') is-invalid @enderror" placeholder="..."
+              value="{{ old('notaris_ijin_terbit') }}" />
             @error('notaris_ijin_terbit')
             <small class="invalid-feedback">
               {{ $message }}

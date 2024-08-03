@@ -10,6 +10,8 @@ use App\Http\Controllers\MainSliderController;
 use App\Http\Controllers\ReviewSliderController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\NotarisController;
+use App\Http\Controllers\PelaporanController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +49,20 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/admin/notaris/{id}/edit', [NotarisController::class, 'edit'])->name('admin.notaris.edit');
     Route::put('/admin/notaris/{id}/update', [NotarisController::class, 'update'])->name('admin.notaris.update');
     Route::delete('/admin/notaris/{id}/delete', [NotarisController::class, 'destroy'])->name('admin.notaris.delete');
+
+    Route::get('/admin/pelaporan', [PelaporanController::class, 'index'])->name('admin.pelaporan');
+    Route::get('/admin/pelaporan/add', [PelaporanController::class, 'create'])->name('admin.pelaporan.create');
+    Route::post('/admin/pelaporan/store', [PelaporanController::class, 'store'])->name('admin.pelaporan.store');
+    Route::get('/admin/pelaporan/{id}/edit', [PelaporanController::class, 'edit'])->name('admin.pelaporan.edit');
+    Route::put('/admin/pelaporan/{id}/update', [PelaporanController::class, 'update'])->name('admin.pelaporan.update');
+    Route::delete('/admin/pelaporan/{id}/delete', [PelaporanController::class, 'destroy'])->name('admin.pelaporan.delete');
+
+    Route::get('/admin/laporan', [LaporanController::class, 'index'])->name('admin.laporan');
+    Route::get('/admin/laporan/add', [LaporanController::class, 'create'])->name('admin.laporan.create');
+    Route::post('/admin/laporan/store', [LaporanController::class, 'store'])->name('admin.laporan.store');
+    Route::get('/admin/laporan/{id}/edit', [LaporanController::class, 'edit'])->name('admin.laporan.edit');
+    Route::put('/admin/laporan/{id}/update', [LaporanController::class, 'update'])->name('admin.laporan.update');
+    Route::delete('/admin/laporan/{id}/delete', [LaporanController::class, 'destroy'])->name('admin.laporan.delete');
 
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('/admin/category/add', [CategoryController::class, 'create'])->name('admin.category.create');

@@ -25,7 +25,7 @@
     <div class="card-body">
       <h5 class="mb-3">{{ $subtitle }} Form</h5>
       <div class="row">
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Name</label>
             <input type="text" name="notaris_name" class="form-control @error('notaris_name') is-invalid @enderror"
@@ -37,7 +37,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Nomor ijin</label>
             <input type="text" name="notaris_no_ijin"
@@ -50,7 +50,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Alamat</label>
             <textarea type="text" name="notaris_alamat"
@@ -63,7 +63,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">No Telp</label>
             <input type="text" name="notaris_no_telp"
@@ -76,7 +76,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Email</label>
             <input type="email" name="notaris_email" class="form-control @error('notaris_email') is-invalid @enderror"
@@ -88,7 +88,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Password Baru</label>
             <input type="password" name="notaris_password"
@@ -101,7 +101,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Konfirmasi Password Baru</label>
             <input type="password" name="notaris_password_confirmation"
@@ -114,7 +114,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Jabatan</label>
             <input type="text" name="notaris_jabatan"
@@ -127,7 +127,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Wilayah Kerja</label>
             <input type="text" name="notaris_wilayah"
@@ -140,7 +140,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Tanggal Izin Diterbitkan</label>
             <input type="date" name="notaris_ijin_terbit"

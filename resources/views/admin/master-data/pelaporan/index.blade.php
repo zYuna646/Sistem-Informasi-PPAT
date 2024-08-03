@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-        <a href="{{ route('admin.notaris.create') }}" class="btn btn-info d-flex align-items-center">
+        <a href="{{ route('admin.pelaporan.create') }}" class="btn btn-info d-flex align-items-center">
           <i class="ti ti-plus text-white me-1 fs-5"></i> Add {{ $title ?? '' }}
         </a>
       </div>
@@ -63,11 +63,9 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nama</th>
-            <th>Jabatan</th>
-            <th>Nomor Telp</th>
-            <th>Email</th>
-            <th>Action</th>
+            <th>Nama Notaris/PPAT</th>
+            <th>Nomor Izin</th>
+            <th>Pelaporan</th>
           </tr>
         </thead>
         <tbody>
@@ -75,9 +73,7 @@
           <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $result->user->name }}</td>
-            <td>{{ $result->jabatan }}</td>
-            <td>{{ $result->telepon }}</td>
-            <td>{{ $result->user->email }}</td>
+            <td>{{ $result->nomor_ijin }}</td>
             <td>
               <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-warning">
                 <i class="ti ti-pencil"></i>

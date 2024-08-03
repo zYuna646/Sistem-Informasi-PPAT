@@ -21,19 +21,20 @@ class DatabaseSeeder extends Seeder
         $this->call(IndoRegionVillageSeeder::class);
 
 
-        Role::create([
-            'name' => 'admin',
-        ]);
-        Role::create([
-            'name' => 'ppat',
-        ]);
-       
+        $this->call(RoleSeeder::class);
+        
         $admin = Role::where('name', 'admin')->first();
+        
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
             'role_id' => $admin->id,
         ]);
+        
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

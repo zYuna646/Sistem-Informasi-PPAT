@@ -29,8 +29,10 @@
           <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
         </div>
       </div>
-      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-       
+      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
+        <a href="" class="btn btn-warning d-flex align-items-center">
+          <i class="ti ti-file text-white me-1 fs-5"></i> Export
+        </a>
       </div>
     </div>
   </div>
@@ -61,19 +63,22 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nama Notaris/PPAT</th>
-            <th>Nomor Izin</th>
-            <th>Pelaporan</th>
+            <th>Nomor Akta</th>
+            <th>Tanggal Akta</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $result->user->name }}</td>
-            <td>{{ $result->nomor_ijin }}</td>
+            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
+            <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
+              }}</td>
+            <td>{{ $result->status }}</td>
             <td>
-              <a href="{{ route('verificator.laporan', $result->id) }}" class="btn btn-sm btn-info">
+              <a href="{{ route('verificator.laporan.detail', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>
               </a>
             </td>

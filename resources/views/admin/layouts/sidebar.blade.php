@@ -43,6 +43,15 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'verificator') active @endif" href="{{ route('admin.verificator') }}"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user"></i>
+                        </span>
+                        <span class="hide-menu">Verificator</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link @if ($active == 'pelaporan') active @endif"
                         href="{{ route('admin.pelaporan') }}" aria-expanded="false">
                         <span>
@@ -60,7 +69,7 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link @if ($active == 'dashboard') active @endif"
-                        href="{{ route('admin.dashboard') }}" aria-expanded="false">
+                        href="{{ route('notaris.dashboard') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>
@@ -74,6 +83,35 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link @if ($active == 'pelaporan') active @endif"
                         href="{{ route('notaris.pelaporan') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-files"></i>
+                        </span>
+                        <span class="hide-menu">Pelaporan</span>
+                    </a>
+                </li>
+            </ul>
+            @elseif(Auth::user()->roles->name === 'Verificator')
+            <ul id="sidebarnav">
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Home</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'dashboard') active @endif"
+                        href="{{ route('verificator.dashboard') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-layout-dashboard"></i>
+                        </span>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Master Data</span>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'pelaporan') active @endif"
+                        href="{{ route('verificator.pelaporan') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-files"></i>
                         </span>

@@ -30,7 +30,9 @@
         </div>
       </div>
       <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-       
+        <a href="{{ route('admin.verificator.create') }}" class="btn btn-info d-flex align-items-center">
+          <i class="ti ti-plus text-white me-1 fs-5"></i> Add {{ $title ?? '' }}
+        </a>
       </div>
     </div>
   </div>
@@ -61,21 +63,28 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nama Notaris/PPAT</th>
-            <th>Nomor Izin</th>
-            <th>Pelaporan</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $result->user->name }}</td>
-            <td>{{ $result->nomor_ijin }}</td>
+            <td>{{ $result->name }}</td>
+            <td>{{ $result->email }}</td>
             <td>
-              <a href="{{ route('verificator.laporan', $result->id) }}" class="btn btn-sm btn-info">
-                <i class="ti ti-eye"></i>
+              <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-warning">
+                <i class="ti ti-pencil"></i>
               </a>
+              <form action="{{ route('admin.' . $active . '.delete', $result->id) }}" method="post" class="d-inline">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                  <i class="ti ti-trash"></i>
+                </button>
+              </form>
             </td>
           </tr>
           @endforeach
@@ -94,7 +103,7 @@
           <i class="ti ti-alert-circle"></i>
         </span>
         <p class="mb-0">
-          No category data yet. <a href="{{ route('admin.'. $active . '.create') }}">Add</a> now.
+          No Verificator data yet. <a href="{{ route('admin.'. $active . '.create') }}">Add</a> now.
         </p>
       </div>
     </div>

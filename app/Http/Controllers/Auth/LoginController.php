@@ -33,8 +33,11 @@ class LoginController extends Controller
         if (Auth::user()->roles->name === 'admin') {
             return '/admin'; // Return the URL instead of redirecting
         }
-        elseif (Auth::user()->roles->name === 'Notaris') {
+        elseif (Auth::user()->roles->name === 'Notaris' || Auth::user()->roles->name === 'PPAT') {
             return '/notaris'; // Return the URL instead of redirecting
+        }
+        elseif (Auth::user()->roles->name === 'Verificator') {
+            return '/verificator'; // Return the URL instead of redirecting
         }
         return RouteServiceProvider::HOME;
     }

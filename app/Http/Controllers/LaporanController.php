@@ -273,8 +273,54 @@ class LaporanController extends Controller
         ]);
     }
 
-    
+    public function showByVerificator($id)
+    {
+        $pelaporan = Pelaporan::find($id);
+        $laporan = Laporan::where('pelaporan_id', $id)->get();
+        return view('verificator.master-data.laporan.index', [
+            'title' => 'Laporan ' . $pelaporan->nomor_ijin,
+            'subtitle' => 'laporan',
+            'active' => 'pelaporan',
+            'datas' => $laporan,
+            'pelaporan' => $pelaporan,
+        ]);
+    }
 
+    public function detailByVerificator($id)
+    {        
+        return view('verificator.master-data.laporan.show', [
+            'title' => 'Laporan',
+            'subtitle' => 'Edit Laporan',
+            'active' => 'pelaporan',
+            'data' => Laporan::findOrFail($id),
+            'pelaporans' => Pelaporan::orderBy('id', 'ASC')->get(),
+        ]);
+    }
+
+    public function verifikasiByVerificator($id)
+    {
+        
+        $laporan = Laporan::find($id);
+        // Update laporan data
+        $laporan->update([
+            'status' => 'selesai',
+        ]);
+
+        return redirect()->route('verificator.pelaporan')->with('success', 'Laporan has been updated!');
+    }
+
+    public function tolakByVerificator($id)
+    {
+        
+        $laporan = Laporan::find($id);
+        // Update laporan data
+        $laporan->update([
+            'status' => 'tolak',
+        ]);
+
+        return redirect()->route('verificator.pelaporan')->with('success', 'Laporan has been updated!');
+    }
+    
 
 
 }

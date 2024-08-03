@@ -171,5 +171,72 @@ class PelaporanController extends Controller
         return redirect()->route('notaris.pelaporan')->with('success', 'Pelaporan has been deleted!');
     }
 
+    public function showByVerificator()
+    {
+        return view('verificator.master-data.pelaporan.index', [
+            'title' => 'Pelaporan',
+            'subtitle' => '',
+            'active' => 'pelaporan',
+            'datas' => Pelaporan::latest()->get(),
+        ]);
+    }
+
+    public function storeByVerificator(Request $request)
+    {
+        $validatedData = $request->validate([
+            'pelaporan_nomor_ijin' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        $pelaporan = Pelaporan::create([
+            'user_id' => $user->id,
+            'nomor_ijin' => $request->pelaporan_nomor_ijin,
+        ]);
+
+        for ($i = 0; $i < 12; $i++) {
+            Laporan::create([
+                'deadline' => Carbon::now()->addMonths($i)->endOfMonth()->toDateString(),
+                'pelaporan_id' => $pelaporan->id,
+            ]);
+        }
+
+        return redirect()->route('notaris.pelaporan')->with('success', 'Pelaporan has been added!');
+    }
+
+    public function editByVerificator($id)
+    {
+        return view('notaris.master-data.pelaporan.edit', [
+            'title' => 'Pelaporan',
+            'subtitle' => 'Edit Pelaporan',
+            'active' => 'pelaporan',
+            'data' => Pelaporan::findOrFail($id),
+            'notarises' => Notaris::orderBy('id', 'ASC')->get(),
+        ]);
+    }
+
+    public function updateByVerificator(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'pelaporan_nomor_ijin' => 'required',
+        ]);
+
+        $pelaporan = Pelaporan::findOrFail($id);
+
+        $pelaporan->update([
+            'nomor_ijin' => $request->pelaporan_nomor_ijin,
+        ]);
+
+        return redirect()->route('notaris.pelaporan')->with('success', 'Pelaporan has been updated!');
+    }
+
+    public function destroyByVerificator($id)
+    {
+        $pelaporan = Pelaporan::findOrFail($id);
+        $pelaporan->delete();
+
+        return redirect()->route('notaris.pelaporan')->with('success', 'Pelaporan has been deleted!');
+    }
+
 
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Notaris;
 use App\Models\User;
 use App\Models\Catalog;
 use App\Models\Category;
@@ -9,7 +8,7 @@ use App\Models\Video;
 use App\Models\Information;
 use Illuminate\Http\Request;
 
-class NotarisController extends Controller
+class VerificatorController extends Controller
 {
     //
     public function index()
@@ -23,7 +22,7 @@ class NotarisController extends Controller
         $latest_video = Video::orderBy('created_at', 'desc')->take(1)->first();
         $latest_informations = Information::orderBy('created_at', 'desc')->take(3)->get();
 
-        return view('notaris.dashboard', [
+        return view('verificator.dashboard', [
             'title' => 'Dashboard',
             'subtitle' => '',
             'active' => 'dashboard',
@@ -96,55 +95,39 @@ class NotarisController extends Controller
 
     public function show()
     {
-        return view('admin.master-data.notaris.index', [
-            'title' => 'Notaris',
+        return view('admin.master-data.verificator.index', [
+            'title' => 'Verificator',
             'subtitle' => '',
-            'active' => 'notaris',
-            'datas' => Notaris::latest()->get(),
+            'active' => 'verificator',
+            'datas' => User::where('role_id', 4)->get(),
         ]);
     }
 
     public function create()
     {
-        return view('admin.master-data.notaris.create', [
-            'title' => 'Notaris',
-            'subtitle' => 'Add Notaris',
-            'active' => 'notaris',
+        return view('admin.master-data.verificator.create', [
+            'title' => 'Verificator',
+            'subtitle' => 'Add Verificator',
+            'active' => 'verificator',
         ]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'notaris_name' => 'required|max:255',
-            'notaris_no_ijin' => 'required|max:255',
-            'notaris_alamat' => 'required',
-            'notaris_no_telp' => 'required|numeric', 
-            'notaris_email' => 'required||unique:users,email', 
-            'notaris_password' => 'required|min:8', 
-            'notaris_jabatan' => 'required', 
-            'notaris_wilayah' => 'required|max:255',
-            'notaris_ijin_terbit' => 'required|date',
+            'verificator_name' => 'required|max:255',
+            'verificator_email' => 'required||unique:users,email', 
+            'verificator_password' => 'required|min:8', 
         ]);
 
         $user = User::create([
-            'name' => $request->notaris_name,
-            'email' => $request->notaris_email,
-            'password' => bcrypt($request->notaris_password), // Pastikan menggunakan field yang benar
-            'role_id' => 2, // Sesuaikan dengan kebutuhan
+            'name' => $request->verificator_name,
+            'email' => $request->verificator_email,
+            'password' => bcrypt($request->verificator_password), // Pastikan menggunakan field yang benar
+            'role_id' => 4, // Sesuaikan dengan kebutuhan
         ]);
 
-        Notaris::create([
-            'user_id' => $user->id, // Menggunakan ID pengguna yang baru dibuat
-            'nomor_ijin' => $request->notaris_no_ijin,
-            'alamat' => $request->notaris_alamat,
-            'telepon' => $request->notaris_no_telp,
-            'jabatan' => $request->notaris_jabatan,
-            'wilayah_kerja' => $request->notaris_wilayah,
-            'tanggal_ijin' => $request->notaris_ijin_terbit,
-        ]);
-
-        return redirect()->route('admin.notaris')->with('success', 'Notaris has been added!');
+        return redirect()->route('admin.verificator')->with('success', 'Verificator has been added!');
     }
 
     public function edit($id)

@@ -12,6 +12,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\NotarisController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\VerificatorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,13 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::put('/admin/notaris/{id}/update', [NotarisController::class, 'update'])->name('admin.notaris.update');
     Route::delete('/admin/notaris/{id}/delete', [NotarisController::class, 'destroy'])->name('admin.notaris.delete');
 
+    Route::get('/admin/verificator', [VerificatorController::class, 'show'])->name('admin.verificator');
+    Route::get('/admin/verificator/add', [VerificatorController::class, 'create'])->name('admin.verificator.create');
+    Route::post('/admin/verificator/store', [VerificatorController::class, 'store'])->name('admin.verificator.store');
+    Route::get('/admin/verificator/{id}/edit', [VerificatorController::class, 'edit'])->name('admin.verificator.edit');
+    Route::put('/admin/verificator/{id}/update', [VerificatorController::class, 'update'])->name('admin.verificator.update');
+    Route::delete('/admin/verificator/{id}/delete', [VerificatorController::class, 'destroy'])->name('admin.verificator.delete');
+
     Route::get('/admin/pelaporan', [PelaporanController::class, 'show'])->name('admin.pelaporan');
     Route::get('/admin/pelaporan/add', [PelaporanController::class, 'create'])->name('admin.pelaporan.create');
     Route::post('/admin/pelaporan/store', [PelaporanController::class, 'store'])->name('admin.pelaporan.store');
@@ -78,6 +86,21 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/notaris/laporan/{id}/edit', [LaporanController::class, 'editByNotaris'])->name('notaris.laporan.edit');
     Route::put('/notaris/laporan/{id}/update', [LaporanController::class, 'updateByNotaris'])->name('notaris.laporan.update');
     Route::get('/notaris/laporan/{id}/detail', [LaporanController::class, 'detailByNotaris'])->name('notaris.laporan.detail');
+
+    Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
+    Route::put('/notaris/change-password/{id}', [NotarisController::class, 'changePassword'])->name('notaris.change-password');
+    Route::put('/notaris/change-information/{id}', [NotarisController::class, 'changeInformation'])->name('notaris.change-information');
+});
+
+Route::middleware(['auth', 'login-check'])->group(function () {
+    Route::get('/verificator', [VerificatorController::class, 'index'])->name('verificator.dashboard');
+
+    Route::get('/verificator/pelaporan', [PelaporanController::class, 'showByVerificator'])->name('verificator.pelaporan');
+
+    Route::get('/verificator/laporan/{id}', [LaporanController::class, 'showByVerificator'])->name('verificator.laporan');
+    Route::get('/verificator/laporan/{id}/detail', [LaporanController::class, 'detailByVerificator'])->name('verificator.laporan.detail');
+    Route::put('/verificator/laporan/{id}/verifikasi', [LaporanController::class, 'verifikasiByVerificator'])->name('verificator.laporan.verifikasi');
+    Route::put('/verificator/laporan/{id}/tolak', [LaporanController::class, 'tolakByVerificator'])->name('verificator.laporan.tolak');
 
     Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
     Route::put('/notaris/change-password/{id}', [NotarisController::class, 'changePassword'])->name('notaris.change-password');

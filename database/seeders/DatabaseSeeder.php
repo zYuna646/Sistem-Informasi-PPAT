@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+        $this->call(IndoRegionProvinceSeeder::class);
+        $this->call(IndoRegionRegencySeeder::class);
+        $this->call(IndoRegionDistrictSeeder::class);
+        $this->call(IndoRegionVillageSeeder::class);
+
 
         Role::create([
             'name' => 'admin',

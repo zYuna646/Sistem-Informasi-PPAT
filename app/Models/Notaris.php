@@ -11,9 +11,15 @@ class Notaris extends Model
     protected $fillable = [
         'nomor_ijin',
         'alamat',
-        'teleoin',
+        'telepon',
         'user_id',
+        'jabatan',
         'wilayah_kerja',
         'tanggal_ijin',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

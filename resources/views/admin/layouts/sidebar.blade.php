@@ -32,6 +32,14 @@
                     <span class="hide-menu">Master Data</span>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'notaris') active @endif" href="{{ route('admin.notaris') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-category-2"></i>
+                        </span>
+                        <span class="hide-menu">Notaris/PPAT</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link @if ($active == 'category') active @endif" href="{{ route('admin.category') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-category-2"></i>

@@ -9,6 +9,7 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\MainSliderController;
 use App\Http\Controllers\ReviewSliderController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\NotarisController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,13 @@ Auth::routes([
 
 Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/admin/notaris', [NotarisController::class, 'index'])->name('admin.notaris');
+    Route::get('/admin/notaris/add', [NotarisController::class, 'create'])->name('admin.notaris.create');
+    Route::post('/admin/notaris/store', [NotarisController::class, 'store'])->name('admin.notaris.store');
+    Route::get('/admin/notaris/{id}/edit', [NotarisController::class, 'edit'])->name('admin.notaris.edit');
+    Route::put('/admin/notaris/{id}/update', [NotarisController::class, 'update'])->name('admin.notaris.update');
+    Route::delete('/admin/notaris/{id}/delete', [NotarisController::class, 'destroy'])->name('admin.notaris.delete');
 
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin.category');
     Route::get('/admin/category/add', [CategoryController::class, 'create'])->name('admin.category.create');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->json('akta')->nullable();
             $table->json('npwp')->nullable();
             $table->string('bentuk_perbuatan_hukum')->nullable();
-            $table->json('letak_tanah')->nullable();
+            $table->string('letak_tanah')->nullable();
             $table->string('harga_transaksi')->nullable();
             $table->json('sppt')->nullable();
             $table->json('ssp')->nullable();

@@ -58,7 +58,7 @@ class NotarisController extends Controller
             'tanggal_ijin' => $request->notaris_ijin_terbit,
         ]);
 
-        return redirect()->route('admin.notaris')->with('success', 'Category has been added!');
+        return redirect()->route('admin.notaris')->with('success', 'Notaris has been added!');
     }
 
     public function edit($id)
@@ -127,7 +127,7 @@ class NotarisController extends Controller
         $notaris = Notaris::findOrFail($id);
         $notaris->delete();
 
-        return redirect()->route('admin.notaris')->with('success', 'Category has been deleted!');
+        return redirect()->route('admin.notaris')->with('success', 'Notaris has been deleted!');
     }
     
 }

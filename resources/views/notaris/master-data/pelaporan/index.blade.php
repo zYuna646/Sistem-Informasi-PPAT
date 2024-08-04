@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('notaris.layouts.app')
 
 @push('styles')
 <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
@@ -11,7 +11,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{{ route('admin.dashboard') }}" class="text-muted">Dashboard</a>
+          <a href="{{ route('notaris.dashboard') }}" class="text-muted">Dashboard</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ $title ?? '' }}</li>
       </ol>
@@ -29,12 +29,9 @@
           <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
         </div>
       </div>
-      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
-        <a href="" class="btn btn-warning d-flex align-items-center">
-          <i class="ti ti-photo text-white me-1 fs-5"></i> OCR
-        </a>
-        <a href="" class="btn btn-warning d-flex align-items-center">
-          <i class="ti ti-file text-white me-1 fs-5"></i> Export
+      <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+        <a href="{{ route('notaris.pelaporan.create') }}" class="btn btn-info d-flex align-items-center">
+          <i class="ti ti-plus text-white me-1 fs-5"></i> Add {{ $title ?? '' }}
         </a>
       </div>
     </div>
@@ -66,19 +63,32 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nomor Akta</th>
-            <th>Tanggal Akta</th>
-            <th>Status</th>
+            <th>Nama Notaris/PPAT</th>
+            <th>Nomor Izin</th>
+            <th>Pelaporan</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
-            <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
-              }}</td>
-            <td>{{ $result->status }}</td>
+            <td>{{ $result->user->name }}</td>
+            <td>{{ $result->nomor_ijin }}</td>
+            <td>
+              <a href="{{ route('notaris.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-warning">
+                <i class="ti ti-pencil"></i>
+              </a>
+              <a href="{{ route('notaris.laporan', $result->id) }}" class="btn btn-sm btn-info">
+                <i class="ti ti-eye"></i>
+              </a>
+              <form action="{{ route('notaris.' . $active . '.delete', $result->id) }}" method="post" class="d-inline">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                  <i class="ti ti-trash"></i>
+                </button>
+              </form>
+            </td>
           </tr>
           @endforeach
         </tbody>
@@ -96,7 +106,7 @@
           <i class="ti ti-alert-circle"></i>
         </span>
         <p class="mb-0">
-          No category data yet. <a href="{{ route('admin.'. $active . '.create') }}">Add</a> now.
+          No category data yet. <a href="{{ route('notaris.'. $active . '.create') }}">Add</a> now.
         </p>
       </div>
     </div>

@@ -31,9 +31,6 @@
       </div>
       <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
         <a href="" class="btn btn-warning d-flex align-items-center">
-          <i class="ti ti-photo text-white me-1 fs-5"></i> OCR
-        </a>
-        <a href="" class="btn btn-warning d-flex align-items-center">
           <i class="ti ti-file text-white me-1 fs-5"></i> Export
         </a>
       </div>
@@ -69,6 +66,7 @@
             <th>Nomor Akta</th>
             <th>Tanggal Akta</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +77,11 @@
             <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
               }}</td>
             <td>{{ $result->status }}</td>
+            <td>
+              <a href="{{ route('verificator.laporan.detail', $result->id) }}" class="btn btn-sm btn-info">
+                <i class="ti ti-eye"></i>
+              </a>
+            </td>
           </tr>
           @endforeach
         </tbody>

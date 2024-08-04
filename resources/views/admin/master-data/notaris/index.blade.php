@@ -64,8 +64,8 @@
           <tr>
             <th>No</th>
             <th>Nama</th>
-            <th>Jabatan</th>
-            <th>Nomor Telp</th>
+            <th>Nomor Akta</th>
+            <th>Status</th>
             <th>Email</th>
             <th>Action</th>
           </tr>

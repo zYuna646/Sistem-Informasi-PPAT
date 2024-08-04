@@ -22,5 +22,8 @@ class RoleSeeder extends Seeder
         Role::create([
             'name' => 'PPAT',
         ]);
+        Role::create([
+            'name' => 'Verificator',
+        ]);
     }
 }

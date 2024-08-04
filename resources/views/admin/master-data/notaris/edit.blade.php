@@ -10,7 +10,7 @@
           <a href="{{ route('admin.dashboard') }}" class="text-muted">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{{ route('admin.category') }}" class="text-muted">{{ $title ?? '' }}</a>
+          <a href="{{ route('admin.notaris') }}" class="text-muted">{{ $title ?? '' }}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ $subtitle ?? '' }}</li>
       </ol>
@@ -117,9 +117,16 @@
         <div class="col-12 mb-3">
           <div>
             <label class="control-label mb-1">Jabatan</label>
-            <input type="text" name="notaris_jabatan"
-              class="form-control @error('notaris_jabatan') is-invalid @enderror" placeholder="..."
-              value="{{ old('notaris_jabatan', $data->jabatan) }}" />
+            <select name="notaris_jabatan"
+              class="form-control form-select @error('notaris_jabatan') is-invalid @enderror">
+              <option value="" selected hidden>-- Select Notaris --</option>
+              <option value="Notaris" {{ $data->jabatan == 'Notaris' ? 'selected' : '' }}>
+                Notaris
+              </option>
+              <option value="PPAT" {{ $data->jabatan == 'PPAT' ? 'selected' : '' }}>
+                PPAT
+              </option>
+            </select>
             @error('notaris_jabatan')
             <small class="invalid-feedback">
               {{ $message }}

@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('notaris.layouts.app')
 
 @section('content')
 <div class="card bg-light-info shadow-none position-relative overflow-hidden">
@@ -7,10 +7,10 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{{ route('admin.dashboard') }}" class="text-muted">Dashboard</a>
+          <a href="{{ route('notaris.dashboard') }}" class="text-muted">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{{ route('admin.' . $active) }}" class="text-muted">{{ $title ?? '' }}</a>
+          <a href="{{ route('notaris.' . $active) }}" class="text-muted">{{ $title ?? '' }}</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">{{ $subtitle ?? '' }}</li>
       </ol>
@@ -19,35 +19,17 @@
 </div>
 
 <div class="card">
-  <form action="{{ route('admin.' . $active . '.update', $data->id) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('notaris.' . $active . '.store') }}" method="post" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
     <div class="card-body">
       <h5 class="mb-3">{{ $subtitle }} Form</h5>
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label class="control-label mb-1">Notaris</label>
-            <select name="pelaporan_notaris"
-              class="form-control form-select @error('pelaporan_notaris') is-invalid @enderror">
-              <option value="" selected hidden>-- Select Notaris --</option>
-              @foreach ($notarises as $notaris)
-              <option value="{{ $notaris->id }}" {{ $data->user_id == $notaris->user_id ? 'selected' : '' }}>
-                {{ $notaris->user->name }}
-              </option>
-              @endforeach
-            </select>
-            @error('pelaporan_notaris')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
-          <div class="mb-3">
             <label class="control-label mb-1">Nomor ijin</label>
             <input type="text" name="pelaporan_nomor_ijin"
               class="form-control @error('pelaporan_nomor_ijin') is-invalid @enderror" placeholder="..."
-              value="{{ old('pelaporan_nomor_ijin', $data->nomor_ijin) }}" />
+              value="{{ old('pelaporan_nomor_ijin') }}" />
             @error('pelaporan_nomor_ijin')
             <small class="invalid-feedback">
               {{ $message }}
@@ -96,7 +78,7 @@
                 var x2 = x.length > 1 ? '.' + x[1] : '';
                 var rgx = /(\d+)(\d{3})/;
                 while (rgx.test(x1)) {
-                    x1 = x1.replace(rgx, '$1' + ',' + '$2);
+                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
                 }
                 return x1 + x2;
             }

@@ -25,9 +25,10 @@
       <h5 class="mb-3">{{ $subtitle }} Form</h5>
       <div class="row">
         <div class="col-12">
-          <div class="">
+          <div class="mb-3">
             <label class="control-label mb-1">Notaris <span class="text-danger">*</span></label>
-            <select name="pelaporan_notaris" class="form-control form-select @error('pelaporan_notaris') is-invalid @enderror">
+            <select name="pelaporan_notaris"
+              class="form-control form-select @error('pelaporan_notaris') is-invalid @enderror">
               <option value="" selected hidden>-- Select Notaris --</option>
               @foreach ($notarises as $notaris)
               <option value="{{ $notaris->id }}">
@@ -36,6 +37,17 @@
               @endforeach
             </select>
             @error('pelaporan_notaris')
+            <small class="invalid-feedback">
+              {{ $message }}
+            </small>
+            @enderror
+          </div>
+          <div class="mb-3">
+            <label class="control-label mb-1">Nomor ijin</label>
+            <input type="text" name="pelaporan_nomor_ijin"
+              class="form-control @error('pelaporan_nomor_ijin') is-invalid @enderror" placeholder="..."
+              value="{{ old('pelaporan_nomor_ijin') }}" />
+            @error('pelaporan_nomor_ijin')
             <small class="invalid-feedback">
               {{ $message }}
             </small>

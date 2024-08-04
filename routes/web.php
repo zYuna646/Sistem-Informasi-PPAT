@@ -86,7 +86,8 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/notaris/laporan/{id}/edit', [LaporanController::class, 'editByNotaris'])->name('notaris.laporan.edit');
     Route::put('/notaris/laporan/{id}/update', [LaporanController::class, 'updateByNotaris'])->name('notaris.laporan.update');
     Route::get('/notaris/laporan/{id}/detail', [LaporanController::class, 'detailByNotaris'])->name('notaris.laporan.detail');
-
+    Route::post('/notaris/laporan/{id}/ocr', [LaporanController::class, 'ocr'])->name('notaris.laporan.ocr');
+    Route::get('/notaris/laporan/{id}/export', [LaporanController::class, 'export'])->name('notaris.laporan.export');
     Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
     Route::put('/notaris/change-password/{id}', [NotarisController::class, 'changePassword'])->name('notaris.change-password');
     Route::put('/notaris/change-information/{id}', [NotarisController::class, 'changeInformation'])->name('notaris.change-information');

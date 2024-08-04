@@ -30,12 +30,16 @@
         </div>
       </div>
       <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
-        <a href="" class="btn btn-warning d-flex align-items-center">
+        <a href="javascript:void(0);" class="btn btn-warning d-flex align-items-center" id="ocr-button">
           <i class="ti ti-photo text-white me-1 fs-5"></i> OCR
         </a>
-        <a href="" class="btn btn-warning d-flex align-items-center">
+        <a href="{{route('notaris.laporan.export')}}" class="btn btn-warning d-flex align-items-center">
           <i class="ti ti-file text-white me-1 fs-5"></i> Export
         </a>
+        <form id="ocr-form" action="{{ route('notaris.laporan.ocr', $pelaporan->id) }}" method="post" enctype="multipart/form-data" style="display:none;">
+          @csrf
+          <input type="file" id="ocr-file-input" name="file" accept=".xls,.xlsx" onchange="submitOcrForm()">
+        </form>
       </div>
     </div>
   </div>
@@ -125,5 +129,15 @@
         $("#search-box").keyup(function() {
             dTable.search($(this).val()).draw();
         }); 
+</script>
+
+<script>
+  document.getElementById('ocr-button').addEventListener('click', function() {
+    document.getElementById('ocr-file-input').click();
+  });
+
+  function submitOcrForm() {
+    document.getElementById('ocr-form').submit();
+  }
 </script>
 @endpush

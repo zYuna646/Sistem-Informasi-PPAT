@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Exports\PelaporanExport;
 use App\Models\Laporan;
 use Carbon\Carbon;
 use App\Models\Pelaporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
@@ -32,6 +36,81 @@ class LaporanController extends Controller
             'pelaporans' => Pelaporan::orderBy('user_id', 'ASC')->get(),
         ]);
     }
+
+    public function export($id)
+    {
+        return Excel::download(new PelaporanExport($id), 'pelaporan.xlsx');
+    }
+
+    public function ocr(Request $request, $id)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xls,xlsx',
+        ]);
+
+        $pelaporan = Pelaporan::find($id);
+
+        if (!$pelaporan) {
+            return response()->json(['error' => 'Pelaporan not found'], 404);
+        }
+
+        $file = $request->file('file');
+        $response = Http::attach(
+            'file',
+            file_get_contents($file),
+            $file->getClientOriginalName()
+        )->post('http://your-django-server-url/ocr/');
+
+        if ($response->successful()) {
+            $data = $response->json();
+
+            // Iterate through each row in the OCR data
+            foreach ($data as $index => $row) {
+                // Check if the laporan exists at the given index
+                if (isset($pelaporan->laporan[$index])) {
+                    $laporan = $pelaporan->laporan[$index];
+
+                    // Update the laporan with the OCR data
+                    $laporan->update([
+                        'akta' => json_encode([
+                            'no' => $row['Akta']['No.'] ?? null,
+                            'tanggal_akta' => $row['Akta']['Tanggal'] ?? null
+                        ]),
+                        'npwp' => json_encode([
+                            'pihak_memberikan' => $row['NPWP']['Pihak_Yang_Mengalihkan/Memberikan'] ?? null,
+                            'pihak_menerima' => $row['NPWP']['Pihak Yang Menerima'] ?? null,
+                        ]),
+                        'sppt' => json_encode([
+                            'nop_tahun' => $row['SPPT_PPB']['NOP_Tahun'] ?? null,
+                            'njop' => $row['SPPT_PPB']['NJOP'] ?? null,
+                        ]),
+                        'ssp' => json_encode([
+                            'tanggal_ssp' => $row['SSP']['Tgl'] ?? null,
+                            'harga_ssp' => $row['SSP']['Rp'] ?? null,
+                        ]),
+                        'ssb' => json_encode([
+                            'tanggal_ssb' => $row['SSB']['Tgl'] ?? null,
+                            'harga_ssb' => $row['SSB']['Rp'] ?? null,
+                        ]),
+                        'luas' => json_encode([
+                            'luas_tanah' => $row['Luas']['Tanah'] ?? null,
+                            'luas_bangunan' => $row['Luas']['Bgn'] ?? null,
+                        ]),
+                        'letak_tanah' => $row['Letak_Tanah_Dan_Bangunan'] ?? null,
+                        'harga_transaksi' => $row['Harga_Transaksi_Perolehan_Pengalihan'] ?? null,
+                        'bentuk_perbuatan_hukum' => $row['Bentuk_Perbuatan_Hukum'] ?? null,
+                        'ket' => $row['Ket'] ?? null,
+                        'jenis_nomor' => $row['Jenis_Dan_Nomor_Hak'] ?? null,
+                        'pelaporan_id' => $id,
+                    ]);
+                }
+            }
+            return redirect()->route('admin.laporan')->with('success', 'Laporan has been added!');
+        } else {
+            return response()->json(['error' => 'Failed to process file'], 500);
+        }
+    }
+
 
     public function store(Request $request)
     {
@@ -95,7 +174,7 @@ class LaporanController extends Controller
     }
 
     public function edit($id)
-    {        
+    {
         return view('admin.master-data.laporan.edit', [
             'title' => 'Laporan',
             'subtitle' => 'Edit Laporan',
@@ -189,7 +268,7 @@ class LaporanController extends Controller
     }
 
     public function editByNotaris($id)
-    {        
+    {
         return view('notaris.master-data.laporan.edit', [
             'title' => 'Laporan',
             'subtitle' => 'Edit Laporan',
@@ -263,7 +342,7 @@ class LaporanController extends Controller
     }
 
     public function detailByNotaris($id)
-    {        
+    {
         return view('notaris.master-data.laporan.show', [
             'title' => 'Laporan',
             'subtitle' => 'Edit Laporan',
@@ -287,7 +366,7 @@ class LaporanController extends Controller
     }
 
     public function detailByVerificator($id)
-    {        
+    {
         return view('verificator.master-data.laporan.show', [
             'title' => 'Laporan',
             'subtitle' => 'Edit Laporan',
@@ -299,7 +378,7 @@ class LaporanController extends Controller
 
     public function verifikasiByVerificator($id)
     {
-        
+
         $laporan = Laporan::find($id);
         // Update laporan data
         $laporan->update([
@@ -311,7 +390,7 @@ class LaporanController extends Controller
 
     public function tolakByVerificator($id)
     {
-        
+
         $laporan = Laporan::find($id);
         // Update laporan data
         $laporan->update([
@@ -320,7 +399,7 @@ class LaporanController extends Controller
 
         return redirect()->route('verificator.pelaporan')->with('success', 'Laporan has been updated!');
     }
-    
+
 
 
 }

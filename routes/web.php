@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FrontPageController::class, 'index'])->name('home');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
 Route::get('/catalog', [FrontPageController::class, 'catalog'])->name('catalog');
 Route::get('/catalog/product/{slug}', [FrontPageController::class, 'productDetail'])->name('product.detail');
 

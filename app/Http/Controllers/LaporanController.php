@@ -45,7 +45,7 @@ class LaporanController extends Controller
     public function ocr(Request $request, $id)
     {
         $request->validate([
-            'file' => 'required|file|mimes:xls,xlsx',
+            'file' => 'required|file',
         ]);
 
         $pelaporan = Pelaporan::find($id);
@@ -56,13 +56,14 @@ class LaporanController extends Controller
 
         $file = $request->file('file');
         $response = Http::attach(
-            'file',
+            'image',
             file_get_contents($file),
             $file->getClientOriginalName()
-        )->post('http://your-django-server-url/ocr/');
+        )->post('http://url/ocr/process/');
 
         if ($response->successful()) {
             $data = $response->json();
+            dd($data);
 
             // Iterate through each row in the OCR data
             foreach ($data as $index => $row) {

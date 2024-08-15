@@ -59,11 +59,10 @@ class LaporanController extends Controller
             'image',
             file_get_contents($file),
             $file->getClientOriginalName()
-        )->post('http://url/ocr/process/');
+        )->post('{url_disini}/ocr/process/');
 
         if ($response->successful()) {
             $data = $response->json();
-            dd($data);
 
             // Iterate through each row in the OCR data
             foreach ($data as $index => $row) {
@@ -106,7 +105,7 @@ class LaporanController extends Controller
                     ]);
                 }
             }
-            return redirect()->route('admin.laporan')->with('success', 'Laporan has been added!');
+            return redirect()->back()->with('success', 'Laporan has been added!');
         } else {
             return response()->json(['error' => 'Failed to process file'], 500);
         }

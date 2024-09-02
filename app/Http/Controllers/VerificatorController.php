@@ -116,8 +116,8 @@ class VerificatorController extends Controller
     {
         $validatedData = $request->validate([
             'verificator_name' => 'required|max:255',
-            'verificator_email' => 'required||unique:users,email', 
-            'verificator_password' => 'required|min:8', 
+            'verificator_email' => 'required||unique:users,email',
+            'verificator_password' => 'required|min:8',
         ]);
 
         $user = User::create([
@@ -132,63 +132,48 @@ class VerificatorController extends Controller
 
     public function edit($id)
     {
-        return view('admin.master-data.notaris.edit', [
-            'title' => 'Notaris',
-            'subtitle' => 'Edit Notaris',
-            'active' => 'notaris',
-            'data' => Notaris::findOrFail($id),
+        return view('admin.master-data.verificator.edit', [
+            'title' => 'Verificator',
+            'subtitle' => 'Edit Verificator',
+            'active' => 'verificator',
+            'data' => User::findOrFail($id),
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $notaris = Notaris::findOrFail($id);
-        $user = $notaris->user;
-    
+        $verificator = User::findOrFail($id);
+
         // Validasi input
         $validatedData = $request->validate([
-            'notaris_name' => 'required|max:255',
-            'notaris_no_ijin' => 'required|max:255',
-            'notaris_alamat' => 'required',
-            'notaris_no_telp' => 'required|numeric',
-            'notaris_email' => [
+            'verificator_name' => 'required|max:255',
+            'verificator_email' => [
                 'required',
                 'email',
                 // Validasi email unik hanya jika email diubah
-                function($attribute, $value, $fail) use ($user) {
-                    if ($value !== $user->email && User::where('email', $value)->exists()) {
+                function ($attribute, $value, $fail) use ($verificator) {
+                    if ($value !== $verificator->email && User::where('email', $value)->exists()) {
                         $fail('The email has already been taken.');
                     }
                 },
             ],
-            'notaris_password' => 'nullable|min:8|confirmed',
-            'notaris_jabatan' => 'required',
-            'notaris_wilayah' => 'required|max:255',
-            'notaris_ijin_terbit' => 'required|date',
+            'verificator_password' => 'nullable|min:8|confirmed',
         ]);
-    
+
         // Update user data
-        $user->name = $request->notaris_name;
-        $user->email = $request->notaris_email;
-    
+        $verificator->name = $request->verificator_name;
+        $verificator->email = $request->verificator_email;
+
         // Update password hanya jika diisi
-        if ($request->filled('notaris_password')) {
-            $user->password = bcrypt($request->notaris_password);
+        if ($request->filled('verificator_password')) {
+            $verificator->password = bcrypt($request->verificator_password);
         }
-    
-        $user->save();
-    
+
+        $verificator->save();
+
         // Update notaris data
-        $notaris->update([
-            'nomor_ijin' => $request->notaris_no_ijin,
-            'alamat' => $request->notaris_alamat,
-            'telepon' => $request->notaris_no_telp,
-            'jabatan' => $request->notaris_jabatan,
-            'wilayah_kerja' => $request->notaris_wilayah,
-            'tanggal_ijin' => $request->notaris_ijin_terbit,
-        ]);
-    
-        return redirect()->route('admin.notaris')->with('success', 'Notaris has been updated!');
+
+        return redirect()->route('admin.verificator')->with('success', 'Notaris has been updated!');
     }
 
     public function destroy($id)
@@ -198,5 +183,5 @@ class VerificatorController extends Controller
 
         return redirect()->route('admin.notaris')->with('success', 'Notaris has been deleted!');
     }
-    
+
 }

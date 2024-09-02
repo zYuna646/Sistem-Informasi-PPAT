@@ -4,7 +4,7 @@
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ route('admin.dashboard') }}" class="text-nowrap">
                 <div class="d-flex align-items-center">
-                    <img src="{{ asset('assets/front/img/favicon.png') }}" width="50">
+                    <img src="{{ asset('assets/images/logos/logo_1.png') }}" width="50">
                     <h4 class="mb-0 px-2 fw-bolder">ADMIN PANEL</h4>
                 </div>
             </a>

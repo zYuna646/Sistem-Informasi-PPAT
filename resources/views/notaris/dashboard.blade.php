@@ -21,8 +21,8 @@
                             <path d="M12 12l0 9"></path>
                             <path d="M12 12l-8 -4.5"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-primary mb-1"> Product </p>
-                        <h5 class="fw-semibold text-primary mb-0">{{ $count_catalog ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-primary mb-1"> Laporan </p>
+                        <h5 class="fw-semibold text-primary mb-0">{{ $count_laporans ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                             <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                             <path d="M7 7m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-warning mb-1"> Category </p>
-                        <h5 class="fw-semibold text-warning mb-0">{{ $count_category ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-warning mb-1"> Diterima </p>
+                        <h5 class="fw-semibold text-warning mb-0">{{ $count_accepted_laporan ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
@@ -59,13 +59,13 @@
                             <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z"></path>
                             <path d="M10 9l5 3l-5 3z"></path>
                         </svg>
-                        <p class="fw-semibold fs-3 text-danger mb-1"> Video </p>
-                        <h5 class="fw-semibold text-danger mb-0">{{ $count_video ?? 0 }}</h5>
+                        <p class="fw-semibold fs-3 text-danger mb-1"> Ditolak </p>
+                        <h5 class="fw-semibold text-danger mb-0">{{ $count_rejected_laporan ?? 0 }}</h5>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="item">
+        {{-- <div class="item">
             <div class="card border-0 zoom-in bg-light-secondary shadow-none">
                 <div class="card-body">
                     <div class="text-center">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- <div class="item">
             <div class="card border-0 zoom-in bg-light-success shadow-none">
                 <div class="card-body">
@@ -111,7 +111,7 @@
         </div> --}}
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12 col-lg-5 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
@@ -193,9 +193,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    @if (count($latest_informations) > 0)
+    {{-- @if (count($latest_informations) > 0)
         <div class="row">
             @foreach ($latest_informations as $latest_information)
                 <div class="col-12 col-lg-4 d-flex align-items-stretch">
@@ -212,7 +212,7 @@
                 </div>
             @endforeach
         </div>
-    @endif
+    @endif --}}
 @endsection
 
 @push('scripts')

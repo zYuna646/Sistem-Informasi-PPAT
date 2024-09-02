@@ -8,16 +8,26 @@ use App\Models\Category;
 use App\Models\Video;
 use App\Models\Information;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotarisController extends Controller
 {
     //
     public function index()
     {
-        $count_catalog = Catalog::count();
-        $count_category = Category::count();
-        $count_video = Video::count();
-        $count_information = Information::count();
+        $user = Auth::user();
+
+        $count_laporans = $user->pelaporan()->withCount('laporan')->get()->sum('laporan_count');
+        $count_accepted_laporan = $user->pelaporan()->withCount([
+            'laporan' => function ($query) {
+                $query->where('status', 'selesai');
+            }
+        ])->get()->sum('laporan_count');
+        $count_rejected_laporan = $user->pelaporan()->withCount([
+            'laporan' => function ($query) {
+                $query->where('status', 'tolak');
+            }
+        ])->get()->sum('laporan_count');
 
         $latest_products = Catalog::orderBy('created_at', 'desc')->take(5)->get();
         $latest_video = Video::orderBy('created_at', 'desc')->take(1)->first();
@@ -27,10 +37,9 @@ class NotarisController extends Controller
             'title' => 'Dashboard',
             'subtitle' => '',
             'active' => 'dashboard',
-            'count_catalog' => $count_catalog,
-            'count_category' => $count_category,
-            'count_video' => $count_video,
-            'count_information' => $count_information,
+            'count_laporans' => $count_laporans,
+            'count_accepted_laporan' => $count_accepted_laporan,
+            'count_rejected_laporan' => $count_rejected_laporan,
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,
@@ -119,10 +128,10 @@ class NotarisController extends Controller
             'notaris_name' => 'required|max:255',
             'notaris_no_ijin' => 'required|max:255',
             'notaris_alamat' => 'required',
-            'notaris_no_telp' => 'required|numeric', 
-            'notaris_email' => 'required||unique:users,email', 
-            'notaris_password' => 'required|min:8', 
-            'notaris_jabatan' => 'required', 
+            'notaris_no_telp' => 'required|numeric',
+            'notaris_email' => 'required||unique:users,email',
+            'notaris_password' => 'required|min:8',
+            'notaris_jabatan' => 'required',
             'notaris_wilayah' => 'required|max:255',
             'notaris_ijin_terbit' => 'required|date',
         ]);
@@ -161,7 +170,7 @@ class NotarisController extends Controller
     {
         $notaris = Notaris::findOrFail($id);
         $user = $notaris->user;
-    
+
         // Validasi input
         $validatedData = $request->validate([
             'notaris_name' => 'required|max:255',
@@ -172,7 +181,7 @@ class NotarisController extends Controller
                 'required',
                 'email',
                 // Validasi email unik hanya jika email diubah
-                function($attribute, $value, $fail) use ($user) {
+                function ($attribute, $value, $fail) use ($user) {
                     if ($value !== $user->email && User::where('email', $value)->exists()) {
                         $fail('The email has already been taken.');
                     }
@@ -183,18 +192,18 @@ class NotarisController extends Controller
             'notaris_wilayah' => 'required|max:255',
             'notaris_ijin_terbit' => 'required|date',
         ]);
-    
+
         // Update user data
         $user->name = $request->notaris_name;
         $user->email = $request->notaris_email;
-    
+
         // Update password hanya jika diisi
         if ($request->filled('notaris_password')) {
             $user->password = bcrypt($request->notaris_password);
         }
-    
+
         $user->save();
-    
+
         // Update notaris data
         $notaris->update([
             'nomor_ijin' => $request->notaris_no_ijin,
@@ -204,7 +213,7 @@ class NotarisController extends Controller
             'wilayah_kerja' => $request->notaris_wilayah,
             'tanggal_ijin' => $request->notaris_ijin_terbit,
         ]);
-    
+
         return redirect()->route('admin.notaris')->with('success', 'Notaris has been updated!');
     }
 
@@ -215,5 +224,5 @@ class NotarisController extends Controller
 
         return redirect()->route('admin.notaris')->with('success', 'Notaris has been deleted!');
     }
-    
+
 }

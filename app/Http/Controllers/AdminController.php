@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Catalog;
 use App\Models\Category;
 use App\Models\Information;
+use App\Models\Laporan;
+use App\Models\Notaris;
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -13,10 +15,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $count_catalog = Catalog::count();
-        $count_category = Category::count();
-        $count_video = Video::count();
-        $count_information = Information::count();
+        $count_notaris = Notaris::count();
+        $count_verificator = User::where('role_id', 4)->count();
+        $count_accepted_report = Laporan::where('status', 'selesai')->count();
+        $count_notaris = Notaris::count();
 
         $latest_products = Catalog::orderBy('created_at', 'desc')->take(5)->get();
         $latest_video = Video::orderBy('created_at', 'desc')->take(1)->first();
@@ -26,10 +28,9 @@ class AdminController extends Controller
             'title' => 'Dashboard',
             'subtitle' => '',
             'active' => 'dashboard',
-            'count_catalog' => $count_catalog,
-            'count_category' => $count_category,
-            'count_video' => $count_video,
-            'count_information' => $count_information,
+            'count_notaris' => $count_notaris,
+            'count_verificator' => $count_verificator,
+            'count_accepted_report' => $count_accepted_report,
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,

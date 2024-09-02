@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->hasOne(Notaris::class);
     }
 
+    public function pelaporan()
+    {
+        return $this->hasMany(Pelaporan::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

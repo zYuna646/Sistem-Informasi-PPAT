@@ -37,7 +37,7 @@
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="{{ url('/') }}" class="text-nowrap logo-img text-center d-block mb-5 w-100">
-                                    <img src="{{ asset('assets/front/img/logo.jpg') }}"
+                                    <img src="{{ asset('assets/images/logos/logo_1.png') }}"
                                         width="180" alt="">
                                 </a>
                                 <div class="position-relative text-center my-4">

@@ -36,7 +36,8 @@
         <a href="{{route('notaris.laporan.export', $pelaporan->id)}}" class="btn btn-warning d-flex align-items-center">
           <i class="ti ti-file text-white me-1 fs-5"></i> Export
         </a>
-        <form id="ocr-form" action="{{ route('notaris.laporan.ocr', $pelaporan->id) }}" method="post" enctype="multipart/form-data" style="display:none;">
+        <form id="ocr-form" action="{{ route('notaris.laporan.ocr', $pelaporan->id) }}" method="post"
+          enctype="multipart/form-data" style="display:none;">
           @csrf
           <input type="file" id="ocr-file-input" name="file" accept=".jpg, .png, .jpeg" onchange="submitOcrForm()">
         </form>
@@ -80,10 +81,28 @@
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
+            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}
+
+
+
+            </td>
             <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
               }}</td>
-            <td>{{ $result->status }}</td>
+            <td>
+              @switch($result->status)
+              @case("tolak")
+              <span class="badge rounded-pill  bg-danger">Tolak</span>
+              @break
+              @case("belum")
+              <span class="badge rounded-pill  bg-warning">Belum</span>
+              @break
+              @case("selesai")
+              <span class="badge rounded-pill  bg-primary">Selesai</span>
+              @break
+              @default
+              <span class="badge rounded-pill  bg-light">Undifined</span>
+              @endswitch
+            </td>
             <td>
               <a href="{{ route('notaris.laporan.edit', $result->id) }}" class="btn btn-sm btn-warning">
                 <i class="ti ti-pencil"></i>

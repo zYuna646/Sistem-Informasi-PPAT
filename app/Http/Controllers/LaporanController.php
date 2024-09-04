@@ -9,7 +9,7 @@ use App\Models\Pelaporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
-
+use PDF;
 class LaporanController extends Controller
 {
     //
@@ -39,9 +39,17 @@ class LaporanController extends Controller
 
     public function export($id)
     {
-        return Excel::download(new PelaporanExport($id), 'pelaporan.xlsx');
-    }
+        $data = Pelaporan::find($id)->laporan;
 
+        // Load the view and pass the data, specifying the paper size as A4 and landscape orientation
+        $pdf = PDF::loadView('pelaporan_pdf', ['laporan' => $data])
+                  ->setPaper('a4', 'landscape'); // Set paper size to A4 and orientation to landscape
+    
+        // Return PDF as a download
+        return $pdf->download('pelaporan.pdf');
+    }
+    
+    
     public function ocr(Request $request, $id)
     {
         $request->validate([
@@ -59,11 +67,12 @@ class LaporanController extends Controller
             'image',
             file_get_contents($file),
             $file->getClientOriginalName()
-        )->post('{url_disini}/ocr/process/');
+        )->post('https://ocr.api.noctdev.tech/ocr/process/');
 
         if ($response->successful()) {
-            $data = $response->json();
-
+            $data = $response->json(); // Assuming $data is an array
+            $data = array_slice($data, 2); // This gets the array starting from index 2
+            
             // Iterate through each row in the OCR data
             foreach ($data as $index => $row) {
                 // Check if the laporan exists at the given index
@@ -73,34 +82,34 @@ class LaporanController extends Controller
                     // Update the laporan with the OCR data
                     $laporan->update([
                         'akta' => json_encode([
-                            'no' => $row['Akta']['No.'] ?? null,
-                            'tanggal_akta' => $row['Akta']['Tanggal'] ?? null
+                            'no' => $row['No. URUT'] ?? null,
+                            'tanggal_akta' => $row['Tanggal'] ?? null
                         ]),
                         'npwp' => json_encode([
-                            'pihak_memberikan' => $row['NPWP']['Pihak_Yang_Mengalihkan/Memberikan'] ?? null,
-                            'pihak_menerima' => $row['NPWP']['Pihak Yang Menerima'] ?? null,
+                            'pihak_memberikan' => $row['Pihak Yang Mengalihkan/Memberikan'] ?? null,
+                            'pihak_menerima' => $row['Pihak Yang Menerima'] ?? null,
                         ]),
                         'sppt' => json_encode([
-                            'nop_tahun' => $row['SPPT_PPB']['NOP_Tahun'] ?? null,
-                            'njop' => $row['SPPT_PPB']['NJOP'] ?? null,
+                            'nop_tahun' => $row['NOP TAHUN'] ?? null,
+                            'njop' => $row['NJOP (Rp.000)'] ?? null,
                         ]),
                         'ssp' => json_encode([
-                            'tanggal_ssp' => $row['SSP']['Tgl'] ?? null,
-                            'harga_ssp' => $row['SSP']['Rp'] ?? null,
+                            'tanggal_ssp' => $row['SSP TGL'] ?? null,
+                            'harga_ssp' => $row['SSP (Rp.000)'] ?? null,
                         ]),
                         'ssb' => json_encode([
-                            'tanggal_ssb' => $row['SSB']['Tgl'] ?? null,
-                            'harga_ssb' => $row['SSB']['Rp'] ?? null,
+                            'tanggal_ssb' => $row['SSB TGL'] ?? null,
+                            'harga_ssb' => $row['SSB (Rp.000)'] ?? null,
                         ]),
                         'luas' => json_encode([
-                            'luas_tanah' => $row['Luas']['Tanah'] ?? null,
-                            'luas_bangunan' => $row['Luas']['Bgn'] ?? null,
+                            'luas_tanah' => $row['Tanah'] ?? null,
+                            'luas_bangunan' => $row['Bgn'] ?? null,
                         ]),
-                        'letak_tanah' => $row['Letak_Tanah_Dan_Bangunan'] ?? null,
-                        'harga_transaksi' => $row['Harga_Transaksi_Perolehan_Pengalihan'] ?? null,
-                        'bentuk_perbuatan_hukum' => $row['Bentuk_Perbuatan_Hukum'] ?? null,
+                        'letak_tanah' => $row['Letak Tanah dan Bangunan'] ?? null,
+                        'harga_transaksi' => $row['Harga Transaksi Perolehan/Pengalihan'] ?? null,
+                        'bentuk_perbuatan_hukum' => $row['Bentuk Perbuatan Hukum'] ?? null,
                         'ket' => $row['Ket'] ?? null,
-                        'jenis_nomor' => $row['Jenis_Dan_Nomor_Hak'] ?? null,
+                        'jenis_nomor' => $row['Jenis dan Nomor Hak'] ?? null,
                         'pelaporan_id' => $id,
                     ]);
                 }

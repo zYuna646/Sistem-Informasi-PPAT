@@ -26,7 +26,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
+Route::get('/', function () {
+    return redirect()->route('login');
+})->name('home');
+
 Route::get('/catalog', [FrontPageController::class, 'catalog'])->name('catalog');
 Route::get('/catalog/product/{slug}', [FrontPageController::class, 'productDetail'])->name('product.detail');
 

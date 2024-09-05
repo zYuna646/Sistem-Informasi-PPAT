@@ -65,7 +65,6 @@
             <th>No</th>
             <th>Nama Notaris/PPAT</th>
             <th>Nomor Izin</th>
-            <th>Periode</th>
             <th>Pelaporan</th>
           </tr>
         </thead>

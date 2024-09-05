@@ -10,7 +10,7 @@
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
-            </div>  
+            </div>
         </div>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar border-top overflow-hidden" data-simplebar="">
@@ -43,12 +43,21 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link @if ($active == 'verificator') active @endif" href="{{ route('admin.verificator') }}"
-                        aria-expanded="false">
+                    <a class="sidebar-link @if ($active == 'verificator') active @endif"
+                        href="{{ route('admin.verificator') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-user"></i>
                         </span>
                         <span class="hide-menu">Verificator</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link @if ($active == 'periode') active @endif" href="{{ route('admin.periode') }}"
+                        aria-expanded="false">
+                        <span>
+                            <i class="ti ti-files"></i>
+                        </span>
+                        <span class="hide-menu">Periode</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

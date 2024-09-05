@@ -12,6 +12,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\NotarisController;
 use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\VerificatorController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,13 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/admin/pelaporan/{id}/edit', [PelaporanController::class, 'edit'])->name('admin.pelaporan.edit');
     Route::put('/admin/pelaporan/{id}/update', [PelaporanController::class, 'update'])->name('admin.pelaporan.update');
     Route::delete('/admin/pelaporan/{id}/delete', [PelaporanController::class, 'destroy'])->name('admin.pelaporan.delete');
+
+    Route::get('/admin/periode', [PeriodeController::class, 'show'])->name('admin.periode');
+    Route::get('/admin/periode/add', [PeriodeController::class, 'create'])->name('admin.periode.create');
+    Route::post('/admin/periode/store', [PeriodeController::class, 'store'])->name('admin.periode.store');
+    Route::get('/admin/periode/{id}/edit', [PeriodeController::class, 'edit'])->name('admin.periode.edit');
+    Route::put('/admin/periode/{id}/update', [PeriodeController::class, 'update'])->name('admin.periode.update');
+    Route::delete('/admin/periode/{id}/delete', [PeriodeController::class, 'destroy'])->name('admin.periode.delete');
 
     Route::get('/admin/laporan/{id}', [LaporanController::class, 'show'])->name('admin.laporan');
 

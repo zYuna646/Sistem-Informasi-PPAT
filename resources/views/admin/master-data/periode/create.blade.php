@@ -19,52 +19,17 @@
 </div>
 
 <div class="card">
-  <form action="{{ route('admin.' . $active . '.store') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('admin.periode.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="card-body">
       <h5 class="mb-3">{{ $subtitle }} Form</h5>
       <div class="row">
         <div class="col-12">
           <div class="mb-3">
-            <label class="control-label mb-1">Notaris <span class="text-danger">*</span></label>
-            <select name="pelaporan_notaris"
-              class="form-control form-select @error('pelaporan_notaris') is-invalid @enderror">
-              <option value="" selected hidden>-- Select Notaris --</option>
-              @foreach ($notarises as $notaris)
-              <option value="{{ $notaris->id }}">
-                {{ $notaris->user->name }}
-              </option>
-              @endforeach
-            </select>
-            @error('pelaporan_notaris')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label class="control-label mb-1">Periode <span class="text-danger">*</span></label>
-            <select name="pelaporan_periode"
-              class="form-control form-select @error('pelaporan_periode') is-invalid @enderror">
-              <option value="" selected hidden>-- Select Periode --</option>
-              @foreach ($periodes as $periode)
-              <option value="{{ $periode->id }}">
-                {{ $periode->tahun }}
-              </option>
-              @endforeach
-            </select>
-            @error('pelaporan_periode')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label class="control-label mb-1">Nomor ijin</label>
-            <input type="text" name="pelaporan_nomor_ijin"
-              class="form-control @error('pelaporan_nomor_ijin') is-invalid @enderror" placeholder="..."
-              value="{{ old('pelaporan_nomor_ijin') }}" />
-            @error('pelaporan_nomor_ijin')
+            <label class="control-label mb-1">Tahun Periode</label>
+            <input type="number" min="2000" max="3000" name="tahun"
+              class="form-control @error('tahun') is-invalid @enderror" placeholder="2000" value="{{ old('tahun') }}" />
+            @error('tahun')
             <small class="invalid-feedback">
               {{ $message }}
             </small>

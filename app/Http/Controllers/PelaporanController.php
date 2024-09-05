@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pelaporan;
 use App\Models\Laporan;
+use App\Models\Periode;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notaris;
@@ -28,6 +29,7 @@ class PelaporanController extends Controller
             'subtitle' => 'Add Pelaporan',
             'active' => 'pelaporan',
             'notarises' => Notaris::orderBy('id', 'ASC')->get(),
+            'periodes' => Periode::orderBy('id', 'ASC')->get(),
         ]);
 
     }
@@ -37,11 +39,13 @@ class PelaporanController extends Controller
         $validatedData = $request->validate([
             'pelaporan_notaris' => 'required',
             'pelaporan_nomor_ijin' => 'required',
+            'pelaporan_periode' => 'required'
         ]);
 
         $notaris = Notaris::FindOrFail($request->pelaporan_notaris);
 
         $pelaporan = Pelaporan::create([
+            'periode_id' => $request->pelaporan_periode,
             'user_id' => $notaris->user_id,
             'nomor_ijin' => $request->pelaporan_nomor_ijin,
         ]);
@@ -64,6 +68,7 @@ class PelaporanController extends Controller
             'active' => 'pelaporan',
             'data' => Pelaporan::findOrFail($id),
             'notarises' => Notaris::orderBy('id', 'ASC')->get(),
+            'periodes' => Periode::orderBy('id', 'ASC')->get(),
         ]);
     }
 
@@ -72,6 +77,7 @@ class PelaporanController extends Controller
         $validatedData = $request->validate([
             'pelaporan_notaris' => 'required',
             'pelaporan_nomor_ijin' => 'required',
+            'pelaporan_periode' => 'required',
         ]);
 
         $notaris = Notaris::findOrFail($request->pelaporan_notaris);
@@ -79,6 +85,7 @@ class PelaporanController extends Controller
 
         $pelaporan->update([
             'user_id' => $notaris->user_id,
+            'periode_id' => $request->pelaporan_periode,
             'nomor_ijin' => $request->pelaporan_nomor_ijin,
         ]);
 

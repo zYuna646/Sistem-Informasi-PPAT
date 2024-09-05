@@ -44,6 +44,23 @@
             @enderror
           </div>
           <div class="mb-3">
+            <label class="control-label mb-1">Periode <span class="text-danger">*</span></label>
+            <select name="pelaporan_periode"
+              class="form-control form-select @error('pelaporan_periode') is-invalid @enderror">
+              <option value="" selected hidden>-- Select Periode --</option>
+              @foreach ($periodes as $periode)
+              <option value="{{ $periode->id }}" {{ $data->periode_id == $periode->id ? 'selected' : '' }}>
+                {{ $periode->tahun }}
+              </option>
+              @endforeach
+            </select>
+            @error('pelaporan_periode')
+            <small class="invalid-feedback">
+              {{ $message }}
+            </small>
+            @enderror
+          </div>
+          <div class="mb-3">
             <label class="control-label mb-1">Nomor ijin</label>
             <input type="text" name="pelaporan_nomor_ijin"
               class="form-control @error('pelaporan_nomor_ijin') is-invalid @enderror" placeholder="..."

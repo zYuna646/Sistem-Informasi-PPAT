@@ -12,6 +12,7 @@ class Pelaporan extends Model
     protected $fillable = [
         'user_id',
         'nomor_ijin',
+        'periode_id'
     ];
 
     public function laporan ()

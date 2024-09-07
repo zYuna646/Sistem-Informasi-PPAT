@@ -110,7 +110,7 @@
             </div>
         </div> --}}
     </div>
-
+{{-- 
     <div class="row">
         <div class="col-12 col-lg-5 d-flex align-items-stretch">
             <div class="card w-100">
@@ -193,7 +193,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @if (count($latest_informations) > 0)
         <div class="row">

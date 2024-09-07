@@ -17,5 +17,6 @@ class Laporan extends Model
     public function LaporanPerorangan()
     {
         return $this->hasMany(LaporanPerorangan::class);
+        
     }
 }

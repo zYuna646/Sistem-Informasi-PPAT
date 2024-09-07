@@ -65,7 +65,7 @@
             <th>No</th>
             <th>Nama Notaris/PPAT</th>
             <th>Nomor Izin</th>
-            <th>Pelaporan</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>

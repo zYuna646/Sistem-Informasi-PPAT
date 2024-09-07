@@ -67,7 +67,7 @@
           <tr>
             <th>No</th>
             <th>Deadline</th>
-            <th>Status</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>

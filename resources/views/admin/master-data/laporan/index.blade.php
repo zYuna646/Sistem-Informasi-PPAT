@@ -67,14 +67,14 @@
           <tr>
             <th>No</th>
             <th>Deadline</th>
-            <th>Status</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-m') }}</td>
+            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-F') }}</td>
             <td>
               <a href="{{ route('admin.laporan_perorangan', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>

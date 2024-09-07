@@ -71,7 +71,7 @@
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-m') }}</td>
+            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-F') }}</td>
             <td>
               <a href="{{ route('verificator.laporan_perorangan', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>

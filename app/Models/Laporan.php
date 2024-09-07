@@ -13,4 +13,9 @@ class Laporan extends Model
         'pelaporan_id',
         'deadline',
     ];
+
+    public function LaporanPerorangan()
+    {
+        return $this->hasMany(LaporanPerorangan::class);
+    }
 }

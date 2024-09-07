@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('ket')->nullable();
             $table->string('luas')->nullable();
             $table->string('jenis_nomor')->nullable();
-            $table->date('deadline');
             $table->string('status')->default('belum');
             $table->foreignId('laporan_id')->constrained('laporans')->onDelete('cascade');
             $table->timestamps();

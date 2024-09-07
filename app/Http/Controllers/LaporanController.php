@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\PelaporanExport;
 use App\Models\Laporan;
+use App\Models\LaporanPerorangan;
 use Carbon\Carbon;
 use App\Models\Pelaporan;
 use Illuminate\Http\Request;
@@ -39,17 +40,37 @@ class LaporanController extends Controller
 
     public function export($id)
     {
-        $data = Pelaporan::find($id)->laporan;
-
-        // Load the view and pass the data, specifying the paper size as A4 and landscape orientation
-        $pdf = PDF::loadView('pelaporan_pdf', ['laporan' => $data])
-                  ->setPaper('a4', 'landscape'); // Set paper size to A4 and orientation to landscape
+        // Find the pelaporan record by its ID and load its 'laporan' relationship
+        $pelaporan = Pelaporan::find($id);
     
-        // Return PDF as a download
+        if (!$pelaporan) {
+            return redirect()->back()->withErrors(['Pelaporan not found.']);
+        }
+    
+        // Assuming 'laporan' is a relationship on the 'Pelaporan' model
+        $laporan = $pelaporan->laporan;
+    
+        $data = [];
+    
+        // Iterate through each 'laporan'
+        foreach ($laporan as $laporanItem) {
+            // Assuming 'LaporanPerorangan' is a relationship on the 'laporan' model
+            foreach ($laporanItem->LaporanPerorangan as $perorangan) {
+                // Append the $perorangan object to the $data array
+                $data[] = $perorangan;
+            }
+        }
+    
+        // Load the view and pass the 'data' variable, specifying the paper size as A4 and landscape orientation
+        $pdf = PDF::loadView('pelaporan_pdf', ['laporan' => $data])
+            ->setPaper('a4', 'landscape');
+    
+        // Return the generated PDF as a download
         return $pdf->download('pelaporan.pdf');
     }
     
-    
+
+
     public function ocr(Request $request, $id)
     {
         $request->validate([
@@ -70,55 +91,75 @@ class LaporanController extends Controller
         )->post('https://ocr.api.noctdev.tech/ocr/process/');
 
         if ($response->successful()) {
-            $data = $response->json(); // Assuming $data is an array
+            $data = $response->json();
             $data = array_slice($data, 2); // This gets the array starting from index 2
-            
-            // Iterate through each row in the OCR data
-            foreach ($data as $index => $row) {
-                // Check if the laporan exists at the given index
-                if (isset($pelaporan->laporan[$index])) {
-                    $laporan = $pelaporan->laporan[$index];
 
-                    // Update the laporan with the OCR data
-                    $laporan->update([
-                        'akta' => json_encode([
-                            'no' => $row['No. URUT'] ?? null,
-                            'tanggal_akta' => $row['Tanggal'] ?? null
-                        ]),
-                        'npwp' => json_encode([
-                            'pihak_memberikan' => $row['Pihak Yang Mengalihkan/Memberikan'] ?? null,
-                            'pihak_menerima' => $row['Pihak Yang Menerima'] ?? null,
-                        ]),
-                        'sppt' => json_encode([
-                            'nop_tahun' => $row['NOP TAHUN'] ?? null,
-                            'njop' => $row['NJOP (Rp.000)'] ?? null,
-                        ]),
-                        'ssp' => json_encode([
-                            'tanggal_ssp' => $row['SSP TGL'] ?? null,
-                            'harga_ssp' => $row['SSP (Rp.000)'] ?? null,
-                        ]),
-                        'ssb' => json_encode([
-                            'tanggal_ssb' => $row['SSB TGL'] ?? null,
-                            'harga_ssb' => $row['SSB (Rp.000)'] ?? null,
-                        ]),
-                        'luas' => json_encode([
-                            'luas_tanah' => $row['Tanah'] ?? null,
-                            'luas_bangunan' => $row['Bgn'] ?? null,
-                        ]),
-                        'letak_tanah' => $row['Letak Tanah dan Bangunan'] ?? null,
-                        'harga_transaksi' => $row['Harga Transaksi Perolehan/Pengalihan'] ?? null,
-                        'bentuk_perbuatan_hukum' => $row['Bentuk Perbuatan Hukum'] ?? null,
-                        'ket' => $row['Ket'] ?? null,
-                        'jenis_nomor' => $row['Jenis dan Nomor Hak'] ?? null,
-                        'pelaporan_id' => $id,
-                    ]);
+            foreach ($data as $index => $row) {
+                $dateString = $row['Tanggal'] ?? null;
+
+                if ($dateString) {
+                    $date = \DateTime::createFromFormat('j-M-y', $dateString);
+
+                    if ($date) {
+                        $month = $date->format('m');  // Numeric month
+                        $monthName = $date->format('F');  // Full month name
+                    } else {
+                        continue; // Skip if date parsing fails
+                    }
+                } else {
+                    continue; // Skip if date is not provided
                 }
+
+                // Check if laporan exists with the deadline month
+                $laporans = $pelaporan->laporan;
+                foreach ($laporans as $laporan) {
+                    $date = Carbon::parse($laporan->deadline);
+                    if ($date->format('m') == $month) {
+                        LaporanPerorangan::create([
+                            'akta' => json_encode([
+                                'no' => $row['No. URUT'] ?? null,
+                                'tanggal_akta' => $row['Tanggal'] ?? null
+                            ]),
+                            'npwp' => json_encode([
+                                'pihak_memberikan' => $row['Pihak Yang Mengalihkan/Memberikan'] ?? null,
+                                'pihak_menerima' => $row['Pihak Yang Menerima'] ?? null,
+                            ]),
+                            'sppt' => json_encode([
+                                'nop_tahun' => $row['NOP TAHUN'] ?? null,
+                                'njop' => $row['NJOP (Rp.000)'] ?? null,
+                            ]),
+                            'ssp' => json_encode([
+                                'tanggal_ssp' => $row['SSP TGL'] ?? null,
+                                'harga_ssp' => $row['SSP (Rp.000)'] ?? null,
+                            ]),
+                            'ssb' => json_encode([
+                                'tanggal_ssb' => $row['SSB TGL'] ?? null,
+                                'harga_ssb' => $row['SSB (Rp.000)'] ?? null,
+                            ]),
+                            'luas' => json_encode([
+                                'luas_tanah' => $row['Tanah'] ?? null,
+                                'luas_bangunan' => $row['Bgn'] ?? null,
+                            ]),
+                            'letak_tanah' => $row['Letak Tanah dan Bangunan'] ?? null,
+                            'harga_transaksi' => $row['Harga Transaksi Perolehan/Pengalihan'] ?? null,
+                            'bentuk_perbuatan_hukum' => $row['Bentuk Perbuatan Hukum'] ?? null,
+                            'ket' => $row['Ket'] ?? null,
+                            'jenis_nomor' => $row['Jenis dan Nomor Hak'] ?? null,
+                            'laporan_id' => $laporan->id,
+                        ]);
+                    }
+
+                }
+
+
             }
+
             return redirect()->back()->with('success', 'Laporan has been added!');
         } else {
             return response()->json(['error' => 'Failed to process file'], 500);
         }
     }
+
 
 
     public function store(Request $request)

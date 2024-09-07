@@ -7,12 +7,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 10px; /* Adjust font size for better fitting */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            table-layout: auto;
+            table-layout: fixed; /* Fix table layout to prevent overflowing columns */
+            word-wrap: break-word; /* Ensure long words break to fit into the cell */
         }
 
         table, th, td {
@@ -20,43 +22,19 @@
         }
 
         th, td {
-            padding: 5px; /* Kurangi padding untuk membuat tabel lebih kecil */
-            font-size: 12px; /* Kurangi ukuran font */
+            padding: 4px; /* Reduce padding for better fitting */
             text-align: left;
         }
 
-        /* Responsive styling */
-        @media screen and (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
-            th {
-                display: none; /* Hide headers on small screens */
-            }
-
-            td {
-                position: relative;
-                padding-left: 50%;
-                white-space: nowrap;
-            }
-
-            td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 0;
-                top: 0;
-                padding-left: 10px;
-                font-weight: bold;
-            }
+        h1 {
+            text-align: center;
+            font-size: 14px; /* Adjust title font size */
         }
 
-        /* Untuk tampilan di layar lebar agar tabel lebih kecil */
-        @media screen and (min-width: 600px) {
-            table {
-                width: 90%; /* Kurangi lebar tabel menjadi 90% */
-                margin: 0 auto; /* Pusatkan tabel */
-            }
+        /* Ensure the table fits the page and the layout works in the PDF */
+        @page {
+            size: A4 landscape; /* Ensure landscape orientation for better width */
+            margin: 10mm; /* Adjust margins */
         }
     </style>
 </head>
@@ -113,7 +91,6 @@
                 <td data-label="Luas Bangunan">{{ $luas['luas_bangunan'] ?? '' }}</td>
                 <td data-label="Jenis Nomor">{{ $data['jenis_nomor'] }}</td>
             </tr>
-            
             @endforeach
         </tbody>
     </table>

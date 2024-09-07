@@ -22,7 +22,6 @@ class LaporanPerorangan extends Model
         'ssp',
         'ssb',
         'ket',
-        'deadline',
         'status',
     ];
 }

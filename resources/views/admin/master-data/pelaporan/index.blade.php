@@ -78,9 +78,7 @@
               <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-warning">
                 <i class="ti ti-pencil"></i>
               </a>
-              <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-info">
-                <i class="ti ti-upload"></i>
-              </a>
+             
               <a href="{{ route('admin.laporan', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>
               </a>

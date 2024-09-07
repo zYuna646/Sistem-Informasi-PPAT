@@ -79,9 +79,7 @@
               <a href="{{ route('admin.laporan_perorangan', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>
               </a>
-              <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-info">
-                <i class="ti ti-upload"></i>
-              </a>
+             
               <form action="{{ route('admin.' . $active . '.delete', $result->id) }}" method="post" class="d-inline">
                 @csrf
                 @method('delete')

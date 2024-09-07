@@ -92,6 +92,7 @@
                 <td data-label="Jenis Nomor">{{ $data['jenis_nomor'] }}</td>
             </tr>
             @endforeach
+            
         </tbody>
     </table>
 </body>

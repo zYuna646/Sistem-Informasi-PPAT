@@ -96,10 +96,8 @@ class LaporanPeroranganController extends Controller
             'npwp' => json_encode([
                 'nama_pihak_memberikan' => $request->laporan_nama_pihak_memberikan,
                 'nik_pihak_memberikan' => $request->laporan_nik_pihak_memberikan,
-                'alamat_pihak_memberikan' => $request->laporan_alamat_pihak_memberikan,
                 'nama_pihak_menerima' => $request->laporan_nama_pihak_menerima,
                 'nik_pihak_menerima' => $request->laporan_nik_pihak_menerima,
-                'alamat_pihak_menerima' => $request->laporan_alamat_pihak_menerima,
             ]),
             'sppt' => json_encode([
                 'nop_tahun' => $request->laporan_nop,
@@ -165,10 +163,8 @@ class LaporanPeroranganController extends Controller
             'npwp' => json_encode([
                 'nama_pihak_memberikan' => $request->laporan_nama_pihak_memberikan,
                 'nik_pihak_memberikan' => $request->laporan_nik_pihak_memberikan,
-                'alamat_pihak_memberikan' => $request->laporan_alamat_pihak_memberikan,
                 'nama_pihak_menerima' => $request->laporan_nama_pihak_menerima,
                 'nik_pihak_menerima' => $request->laporan_nik_pihak_menerima,
-                'alamat_pihak_menerima' => $request->laporan_alamat_pihak_menerima,
             ]),
             'sppt' => json_encode([
                 'nop_tahun' => $request->laporan_nop,
@@ -255,10 +251,8 @@ class LaporanPeroranganController extends Controller
             'npwp' => json_encode([
                 'nama_pihak_memberikan' => $request->nama_pihak_memberikan,
                 'nik_pihak_memberikan' => $request->nik_pihak_memberikan,
-                'alamat_pihak_memberikan' => $request->alamat_pihak_memberikan,
                 'nama_pihak_menerima' => $request->nama_pihak_menerima,
                 'nik_pihak_menerima' => $request->nik_pihak_menerima,
-                'alamat_pihak_menerima' => $request->alamat_pihak_menerima,
             ]),
             'sppt' => json_encode([
                 'nop_tahun' => $request->sppt_nop_tahun,
@@ -323,10 +317,8 @@ class LaporanPeroranganController extends Controller
             'npwp' => json_encode([
                 'nama_pihak_memberikan' => $request->nama_pihak_memberikan,
                 'nik_pihak_memberikan' => $request->nik_pihak_memberikan,
-                'alamat_pihak_memberikan' => $request->alamat_pihak_memberikan,
                 'nama_pihak_menerima' => $request->nama_pihak_menerima,
                 'nik_pihak_menerima' => $request->nik_pihak_menerima,
-                'alamat_pihak_menerima' => $request->alamat_pihak_menerima,
             ]),
             'sppt' => json_encode([
                 'nop_tahun' => $request->sppt_nop_tahun,

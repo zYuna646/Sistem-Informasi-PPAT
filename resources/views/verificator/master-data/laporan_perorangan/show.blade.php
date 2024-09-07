@@ -65,7 +65,18 @@
             <label class="control-label mb-1">Pihak yang menerima</label>
             <input disabled type="text" name="npwp_pihak_menerima"
               class="form-control @error('npwp_pihak_menerima') is-invalid @enderror" placeholder="..."
-              value="{{ old('npwp_pihak_menerima', isset(json_decode($data->npwp)->pihak_menerima) ? json_decode($data->npwp)->pihak_menerima : '') }}" />
+              value="{{ old('npwp_pihak_menerima', isset(json_decode($data->npwp)->nama_pihak_menerima) ? json_decode($data->npwp)->nama_pihak_menerima : '') }}" />
+            @error('npwp_pihak_menerima')
+            <small class="invalid-feedback">
+              {{ $message }}
+            </small>
+            @enderror
+          </div>
+          <div class="mb-3">
+            <label class="control-label mb-1">NIK pihak yang menerima</label>
+            <input disabled type="text" name="npwp_pihak_menerima"
+              class="form-control @error('npwp_pihak_menerima') is-invalid @enderror" placeholder="..."
+              value="{{ old('npwp_pihak_menerima', isset(json_decode($data->npwp)->nik_pihak_menerima) ? json_decode($data->npwp)->nik_pihak_menerima : '') }}" />
             @error('npwp_pihak_menerima')
             <small class="invalid-feedback">
               {{ $message }}
@@ -76,7 +87,18 @@
             <label class="control-label mb-1">Pihak yang memberikan</label>
             <input disabled type="text" name="npwp_pihak_memberikan"
               class="form-control @error('npwp_pihak_memberikan') is-invalid @enderror" placeholder="..."
-              value="{{ old('npwp_pihak_memberikan', isset(json_decode($data->npwp)->pihak_memberikan) ? json_decode($data->npwp)->pihak_memberikan : '') }}" />
+              value="{{ old('npwp_pihak_memberikan', isset(json_decode($data->npwp)->nama_pihak_memberikan) ? json_decode($data->npwp)->nama_pihak_memberikan : '') }}" />
+            @error('npwp_pihak_memberikan')
+            <small class="invalid-feedback">
+              {{ $message }}
+            </small>
+            @enderror
+          </div>
+          <div class="mb-3">
+            <label class="control-label mb-1">NIK pihak yang memberikan</label>
+            <input disabled type="text" name="npwp_pihak_memberikan"
+              class="form-control @error('npwp_pihak_memberikan') is-invalid @enderror" placeholder="..."
+              value="{{ old('npwp_pihak_memberikan', isset(json_decode($data->npwp)->nik_pihak_memberikan) ? json_decode($data->npwp)->nik_pihak_memberikan : '') }}" />
             @error('npwp_pihak_memberikan')
             <small class="invalid-feedback">
               {{ $message }}

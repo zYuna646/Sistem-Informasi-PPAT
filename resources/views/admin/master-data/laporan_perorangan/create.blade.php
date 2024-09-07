@@ -79,17 +79,7 @@
             </small>
             @enderror
           </div>
-          <div class="mb-3">
-            <label class="control-label mb-1">Alamat pihak yang mengalihkan/memberikan</label>
-            <input type="text" name="laporan_alamat_pihak_memberikan"
-              class="form-control @error('laporan_alamat_pihak_memberikan') is-invalid @enderror" placeholder="..."
-              value="{{ old('laporan_alamat_pihak_memberikan') }}"/>
-            @error('laporan_alamat_pihak_memberikan')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
+
           <div class="mb-3">
             <label class="control-label mb-1">Pihak yang menerima</label>
             <input type="text" name="laporan_nama_pihak_menerima"
@@ -112,17 +102,7 @@
             </small>
             @enderror
           </div>
-          <div class="mb-3">
-            <label class="control-label mb-1">Alamat pihak yang menerima</label>
-            <input type="text" name="laporan_alamat_pihak_menerima"
-              class="form-control @error('laporan_alamat_pihak_menerima') is-invalid @enderror" placeholder="..."
-              value="{{ old('laporan_alamat_pihak_menerima') }}"/>
-            @error('laporan_alamat_pihak_menerima')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
+     
           <div class="mb-3">
             <label class="control-label mb-1">Jenis dan nomor hak</label>
             <input type="text" name="laporan_jenis_hak"

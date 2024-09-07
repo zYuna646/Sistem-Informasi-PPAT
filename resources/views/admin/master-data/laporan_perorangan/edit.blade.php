@@ -83,18 +83,6 @@
             @enderror
           </div>
           <div class="mb-3">
-            <label class="control-label mb-1">Alamat pihak yang menerima</label>
-            <input name="alamat_pihak_menerima"
-              class="form-control @error('alamat_pihak_menerima') is-invalid @enderror" placeholder="..."
-              value="{{ old('nik_pihak_menerima', isset(json_decode($data->npwp)->alamat_pihak_menerima) ? json_decode($data->npwp)->alamat_pihak_menerima : '') }}" />
-            @error('alamat_pihak_menerima')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
-
-          <div class="mb-3">
             <label class="control-label mb-1">Pihak yang memberikan</label>
             <input type="text" name="nama_pihak_memberikan"
               class="form-control @error('nama_pihak_memberikan') is-invalid @enderror" placeholder="..."
@@ -116,19 +104,6 @@
             </small>
             @enderror
           </div>
-          <div class="mb-3">
-            <label class="control-label mb-1">Alamat pihak yang memberikan</label>
-            <input name="alamat_pihak_memberikan"
-              class="form-control @error('alamat_pihak_memberikan') is-invalid @enderror" placeholder="..."
-              value="{{ old('alamat_pihak_memberikan', isset(json_decode($data->npwp)->alamat_pihak_memberikan) ? json_decode($data->npwp)->alamat_pihak_memberikan : '') }}" />
-            @error('alamat_pihak_memberikan')
-            <small class="invalid-feedback">
-              {{ $message }}
-            </small>
-            @enderror
-          </div>
-
-
           <div class="mb-3">
             <label class="control-label mb-1">Jenis dan Nomor Hak</label>
             <input type="text" name="jenis_nomor" class="form-control @error('jenis_nomor') is-invalid @enderror"

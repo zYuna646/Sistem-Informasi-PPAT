@@ -7,14 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
- * Run the migrations.
+     * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('laporans', function (Blueprint $table) {
+        Schema::create('laporan_perorangans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelaporan_id')->constrained('pelaporans')->onDelete('cascade');
-            $table->date('deadline');
+            $table->foreignId('laporan_id')->constrained('laporans')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laporans');
+        Schema::dropIfExists('laporan_perorangans');
     }
 };

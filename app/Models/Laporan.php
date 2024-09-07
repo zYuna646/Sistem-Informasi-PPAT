@@ -11,18 +11,6 @@ class Laporan extends Model
 
     protected $fillable = [
         'pelaporan_id',
-        'akta',
-        'bentuk_perbuatan_hukum',
-        'npwp',
-        'jenis_nomor',
-        'letak_tanah',
-        'luas',
-        'harga_transaksi',
-        'sppt',
-        'ssp',
-        'ssb',
-        'ket',
         'deadline',
-        'status',
     ];
 }

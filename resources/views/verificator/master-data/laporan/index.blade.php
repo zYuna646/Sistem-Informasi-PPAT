@@ -63,24 +63,19 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nomor Akta</th>
-            <th>Tanggal Akta</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Deadline</th>
+            <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
-            <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
-              }}</td>
-            <td>{{ $result->status }}</td>
+            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-m') }}</td>
             <td>
-              <a href="{{ route('verificator.laporan.detail', $result->id) }}" class="btn btn-sm btn-info">
+              <a href="{{ route('verificator.laporan_perorangan', $result->id) }}" class="btn btn-sm btn-info">
                 <i class="ti ti-eye"></i>
-              </a>
+              </a>              
             </td>
           </tr>
           @endforeach

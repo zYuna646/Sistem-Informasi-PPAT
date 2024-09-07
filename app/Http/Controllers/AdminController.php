@@ -17,7 +17,7 @@ class AdminController extends Controller
     {
         $count_notaris = Notaris::count();
         $count_verificator = User::where('role_id', 4)->count();
-        $count_accepted_report = Laporan::where('status', 'selesai')->count();
+        // $count_accepted_report = Laporan::where('status', 'selesai')->count();
         $count_notaris = Notaris::count();
 
         $latest_products = Catalog::orderBy('created_at', 'desc')->take(5)->get();
@@ -30,7 +30,7 @@ class AdminController extends Controller
             'active' => 'dashboard',
             'count_notaris' => $count_notaris,
             'count_verificator' => $count_verificator,
-            'count_accepted_report' => $count_accepted_report,
+            // 'count_accepted_report' => $count_accepted_report,
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,

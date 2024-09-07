@@ -14,6 +14,7 @@ use App\Http\Controllers\PelaporanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\VerificatorController;
+use App\Http\Controllers\LaporanPeroranganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,6 +79,15 @@ Route::middleware(['auth', 'login-check'])->group(function () {
 
     Route::get('/admin/laporan/{id}', [LaporanController::class, 'show'])->name('admin.laporan');
 
+    Route::get('/admin/laporan/{id}/laporan_perorangans', [LaporanPeroranganController::class, 'show'])->name('admin.laporan_perorangan');
+    Route::get('/admin/laporan/{id}/laporan_perorangans/add', [LaporanPeroranganController::class, 'create'])->name('admin.laporan_perorangan.create');
+    Route::post('/admin/laporan/{id}/laporan_perorangans/store', [LaporanPeroranganController::class, 'store'])->name('admin.laporan_perorangan.store');
+    Route::get('/admin/laporan/{id}/laporan_perorangan/detail/{idPerorangan}', [LaporanPeroranganController::class, 'detailByAdmin'])->name('admin.laporan_perorangan.detail');
+    Route::get('/admin/laporan/{id}/laporan_perorangans/edit/{idPerorangan}', [LaporanPeroranganController::class, 'edit'])->name('admin.laporan_perorangan.edit');
+    Route::get('/admin/laporan/{id}/laporan_perorangans/edit/{idPerorangan}', [LaporanPeroranganController::class, 'edit'])->name('admin.laporan_perorangan.edit');
+    Route::put('/admin/laporan/{id}/laporan_perorangans/update/{idPerorangan}', [LaporanPeroranganController::class, 'update'])->name('admin.laporan_perorangan.update');
+    Route::delete('/admin/laporan/{id}/laporan_perorangans/delete/{idPerorangan}', [LaporanPeroranganController::class, 'destroy'])->name('admin.laporan_perorangan.delete');
+
     Route::get('/admin/account-setting', [AdminController::class, 'accountSetting'])->name('admin.account-setting');
     Route::put('/admin/change-password/{id}', [AdminController::class, 'changePassword'])->name('admin.change-password');
     Route::put('/admin/change-information/{id}', [AdminController::class, 'changeInformation'])->name('admin.change-information');
@@ -94,9 +104,15 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::delete('/notaris/pelaporan/{id}/delete', [PelaporanController::class, 'destroyByNotaris'])->name('notaris.pelaporan.delete');
 
     Route::get('/notaris/laporan/{id}', [LaporanController::class, 'showByNotaris'])->name('notaris.laporan');
-    Route::get('/notaris/laporan/{id}/edit', [LaporanController::class, 'editByNotaris'])->name('notaris.laporan.edit');
-    Route::put('/notaris/laporan/{id}/update', [LaporanController::class, 'updateByNotaris'])->name('notaris.laporan.update');
-    Route::get('/notaris/laporan/{id}/detail', [LaporanController::class, 'detailByNotaris'])->name('notaris.laporan.detail');
+
+    Route::get('/notaris/laporan/{id}/laporan_perorangan', [LaporanPeroranganController::class, 'showByNotaris'])->name('notaris.laporan_perorangan');
+    Route::get('/notaris/laporan/{id}/laporan_perorangan/add', [LaporanPeroranganController::class, 'createByNotaris'])->name('notaris.laporan_perorangan.create');
+    Route::post('/notaris/laporan/{id}/laporan_perorangan/store', [LaporanPeroranganController::class, 'storeByNotaris'])->name('notaris.laporan_perorangan.store');
+    Route::get('/notaris/laporan/{id}/laporan_perorangan/edit/{idPerorangan}', [LaporanPeroranganController::class, 'editByNotaris'])->name('notaris.laporan_perorangan.edit');
+    Route::put('/notaris/laporan/{id}/laporan_perorangan/update/{idPerorangan}', [LaporanPeroranganController::class, 'updateByNotaris'])->name('notaris.laporan_perorangan.update');
+    Route::get('/notaris/laporan/{id}/laporan_perorangan/detail/{idPerorangan}', [LaporanPeroranganController::class, 'detailByNotaris'])->name('notaris.laporan_perorangan.detail');
+    
+
     Route::post('/notaris/laporan/{id}/ocr', [LaporanController::class, 'ocr'])->name('notaris.laporan.ocr');
     Route::get('/notaris/laporan/{id}/export', [LaporanController::class, 'export'])->name('notaris.laporan.export');
     Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
@@ -110,9 +126,11 @@ Route::middleware(['auth', 'login-check'])->group(function () {
     Route::get('/verificator/pelaporan', [PelaporanController::class, 'showByVerificator'])->name('verificator.pelaporan');
 
     Route::get('/verificator/laporan/{id}', [LaporanController::class, 'showByVerificator'])->name('verificator.laporan');
-    Route::get('/verificator/laporan/{id}/detail', [LaporanController::class, 'detailByVerificator'])->name('verificator.laporan.detail');
-    Route::put('/verificator/laporan/{id}/verifikasi', [LaporanController::class, 'verifikasiByVerificator'])->name('verificator.laporan.verifikasi');
-    Route::put('/verificator/laporan/{id}/tolak', [LaporanController::class, 'tolakByVerificator'])->name('verificator.laporan.tolak');
+
+    Route::get('/verificator/laporan/{id}/laporan_perorangan', [LaporanPeroranganController::class, 'showByVerificator'])->name('verificator.laporan_perorangan');
+    Route::get('/verificator/laporan/{id}/laporan_perorangan/detail/{idPerorangan}', [LaporanPeroranganController::class, 'detailByVerificator'])->name('verificator.laporan_perorangan.detail');
+    Route::put('/verificator/laporan/{id}/laporan_perorangan/verifikasi/{idPerorangan}', [LaporanPeroranganController::class, 'verifikasiByVerificator'])->name('verificator.laporan_perorangan.verifikasi');
+    Route::put('/verificator/laporan/{id}/laporan_perorangan/tolak/{idPerorangan}', [LaporanPeroranganController::class, 'tolakByVerificator'])->name('verificator.laporan_perorangan.tolak');
 
     Route::get('/notaris/account-setting', [NotarisController::class, 'accountSetting'])->name('notaris.account-setting');
     Route::put('/notaris/change-password/{id}', [NotarisController::class, 'changePassword'])->name('notaris.change-password');

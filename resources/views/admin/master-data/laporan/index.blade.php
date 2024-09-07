@@ -66,8 +66,7 @@
         <thead class="header-item">
           <tr>
             <th>No</th>
-            <th>Nomor Akta</th>
-            <th>Tanggal Akta</th>
+            <th>Deadline</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -75,10 +74,22 @@
           @foreach ($datas as $result)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ isset(json_decode($result->akta)->no) ? json_decode($result->akta)->no : 'Kosong' }}</td>
-            <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
-              }}</td>
-            <td>{{ $result->status }}</td>
+            <td>{{ \Carbon\Carbon::parse($result->deadline)->format('Y-m') }}</td>
+            <td>
+              <a href="{{ route('admin.laporan_perorangan', $result->id) }}" class="btn btn-sm btn-info">
+                <i class="ti ti-eye"></i>
+              </a>
+              <a href="{{ route('admin.' . $active . '.edit', $result->id) }}" class="btn btn-sm btn-info">
+                <i class="ti ti-upload"></i>
+              </a>
+              <form action="{{ route('admin.' . $active . '.delete', $result->id) }}" method="post" class="d-inline">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                  <i class="ti ti-trash"></i>
+                </button>
+              </form>
+            </td>
           </tr>
           @endforeach
         </tbody>

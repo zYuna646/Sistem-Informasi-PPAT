@@ -17,17 +17,17 @@ class NotarisController extends Controller
     {
         $user = Auth::user();
 
-        $count_laporans = $user->pelaporan()->withCount('laporan')->get()->sum('laporan_count');
-        $count_accepted_laporan = $user->pelaporan()->withCount([
-            'laporan' => function ($query) {
-                $query->where('status', 'selesai');
-            }
-        ])->get()->sum('laporan_count');
-        $count_rejected_laporan = $user->pelaporan()->withCount([
-            'laporan' => function ($query) {
-                $query->where('status', 'tolak');
-            }
-        ])->get()->sum('laporan_count');
+        // $count_laporans = $user->pelaporan()->withCount('laporan')->get()->sum('laporan_count');
+        // $count_accepted_laporan = $user->pelaporan()->withCount([
+        //     'laporan' => function ($query) {
+        //         $query->where('status', 'selesai');
+        //     }
+        // ])->get()->sum('laporan_count');
+        // $count_rejected_laporan = $user->pelaporan()->withCount([
+        //     'laporan' => function ($query) {
+        //         $query->where('status', 'tolak');
+        //     }
+        // ])->get()->sum('laporan_count');
 
         $latest_products = Catalog::orderBy('created_at', 'desc')->take(5)->get();
         $latest_video = Video::orderBy('created_at', 'desc')->take(1)->first();
@@ -37,9 +37,9 @@ class NotarisController extends Controller
             'title' => 'Dashboard',
             'subtitle' => '',
             'active' => 'dashboard',
-            'count_laporans' => $count_laporans,
-            'count_accepted_laporan' => $count_accepted_laporan,
-            'count_rejected_laporan' => $count_rejected_laporan,
+            // 'count_laporans' => $count_laporans,
+            // 'count_accepted_laporan' => $count_accepted_laporan,
+            // 'count_rejected_laporan' => $count_rejected_laporan,
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,

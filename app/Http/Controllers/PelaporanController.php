@@ -118,6 +118,7 @@ class PelaporanController extends Controller
             'title' => 'Pelaporan',
             'subtitle' => 'Add Pelaporan',
             'active' => 'pelaporan',
+            'periodes' => Periode::orderBy('id', 'ASC')->get(),
         ]);
     }
 
@@ -132,6 +133,7 @@ class PelaporanController extends Controller
         $pelaporan = Pelaporan::create([
             'user_id' => $user->id,
             'nomor_ijin' => $request->pelaporan_nomor_ijin,
+            'periode_id' => $request->pelaporan_periode,
         ]);
 
         for ($i = 0; $i < 12; $i++) {

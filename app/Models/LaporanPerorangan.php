@@ -23,5 +23,6 @@ class LaporanPerorangan extends Model
         'ssb',
         'ket',
         'status',
+        'msg'
     ];
 }

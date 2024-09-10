@@ -66,6 +66,7 @@
             <th>Nomor Akta</th>
             <th>Tanggal Akta</th>
             <th>Status</th>
+            <th>Pesan</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -78,8 +79,8 @@
               }}</td>
             <td>
               @switch($result->status)
-              @case("tolak")
-              <span class="badge rounded-pill  bg-danger">Tolak</span>
+              @case("revisi")
+              <span class="badge rounded-pill  bg-danger">Revisi</span>
               @break
               @case("belum")
               <span class="badge rounded-pill  bg-warning">Belum</span>
@@ -91,6 +92,7 @@
               <span class="badge rounded-pill  bg-light">Undifined</span>
               @endswitch
             </td>
+            <td>{{$result->msg}}</td>
             <td>
               <a href="{{ route('admin.laporan_perorangan.detail', ['id' => $laporan->id, 'idPerorangan' => $result->id]) }}"
                 class="btn btn-sm btn-info">

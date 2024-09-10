@@ -121,6 +121,7 @@ class LaporanPeroranganController extends Controller
             'ket' => $request->laporan_keterangan,
             'jenis_nomor' => $request->laporan_jenis_hak,
             'laporan_id' => $id,
+            'status' => 'proses',
             'deadline' => Carbon::now()->addYear()->toDateString(),
         ]);
 
@@ -188,6 +189,7 @@ class LaporanPeroranganController extends Controller
             'ket' => $request->laporan_keterangan,
             'jenis_nomor' => $request->laporan_jenis_hak,
             'laporan_id' => $id,
+            'status' => 'proses',
             'deadline' => Carbon::now()->addYear()->toDateString(),
         ]);
 
@@ -415,13 +417,13 @@ class LaporanPeroranganController extends Controller
         return redirect()->route('verificator.laporan_perorangan', $id)->with('success', 'Laporan perorangan has been updated!');
     }
 
-    public function tolakByVerificator($id, $idPerorangan)
+    public function tolakByVerificator(Request $request, $id, $idPerorangan)
     {
-
         $laporan = LaporanPerorangan::find($idPerorangan);
         // Update laporan data
         $laporan->update([
-            'status' => 'tolak',
+            'status' => 'revisi',
+            'msg' => $request->pesan_tolak,
         ]);
 
         return redirect()->route('verificator.laporan_perorangan', $id)->with('success', 'Laporan Perorangan has been updated!');

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\LaporanPerorangan;
 use App\Models\User;
 use App\Models\Catalog;
 use App\Models\Category;
@@ -26,10 +27,10 @@ class VerificatorController extends Controller
             'title' => 'Dashboard',
             'subtitle' => '',
             'active' => 'dashboard',
-            'count_catalog' => $count_catalog,
-            'count_category' => $count_category,
+            'count_catalog' => LaporanPerorangan::where('status', 'selesai')->count(),
+            'count_category' => LaporanPerorangan::where('status', 'revisi')->count(),
             'count_video' => $count_video,
-            'count_information' => $count_information,
+            'count_information' => LaporanPerorangan::all()->count(),
             'latest_products' => $latest_products,
             'latest_video' => $latest_video,
             'latest_informations' => $latest_informations,

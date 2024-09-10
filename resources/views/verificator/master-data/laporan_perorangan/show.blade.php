@@ -253,15 +253,53 @@
       </div>
     </div>
   </form>
-  <form
-    action="{{ route('verificator.laporan_perorangan.tolak', ['id' => $laporans->id, 'idPerorangan' => $data->id]) }}"
-    method="post" style="display: inline;" class="px-4 pb-4">
-    @csrf
-    @method('PUT')
-    <button type="submit" class="btn btn-danger rounded-pill px-4 ms-2 text-white">
-      Tolak
-    </button>
-  </form>
+  <div class="form-actions">
+    <div class="card-body border-top">
+      <button type="button" class="btn btn-danger rounded-pill mt-3" data-bs-toggle="modal" data-bs-target="#modalTolak">
+        Tolak
+      </button>
+    </div>
+  </div>
+  
+  <!-- Tombol Tolak yang memunculkan modal -->
+
+</div>
+
+<!-- Modal Tolak -->
+<div class="modal fade" id="modalTolak" tabindex="-1" role="dialog" aria-labelledby="modalTolakLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTolakLabel">Tolak Laporan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form
+                action="{{ route('verificator.laporan_perorangan.tolak', ['id' => $laporans->id, 'idPerorangan' => $data->id]) }}"
+                method="post">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="pesanTolak" class="control-label">Pesan Penolakan</label>
+                        <textarea name="pesan_tolak" id="pesanTolak" class="form-control @error('pesan_tolak') is-invalid @enderror"
+                            rows="4" placeholder="Masukkan alasan penolakan"></textarea>
+                        @error('pesan_tolak')
+                        <small class="invalid-feedback">
+                            {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Tolak</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -269,17 +307,11 @@
 <script>
   $(document).ready(function() {
     $('#priceInput').on('input', function() {
-        // Get the input value and remove non-numeric characters
         let inputValue = $(this).val().replace(/\D/g, '');
-
-        // Add commas to format the number
         inputValue = addCommas(inputValue);
-
-        // Update the input field with the formatted value
         $(this).val(inputValue);
     });
 
-    // Function to add commas to format the number
     function addCommas(nStr) {
         nStr += '';
         var x = nStr.split('.');

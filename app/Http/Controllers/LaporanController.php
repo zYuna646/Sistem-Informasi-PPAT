@@ -146,6 +146,7 @@ class LaporanController extends Controller
                             'ket' => $row['Ket'] ?? null,
                             'jenis_nomor' => $row['Jenis dan Nomor Hak'] ?? null,
                             'laporan_id' => $laporan->id,
+                            'status' => 'proses',
                         ]);
                     }
 

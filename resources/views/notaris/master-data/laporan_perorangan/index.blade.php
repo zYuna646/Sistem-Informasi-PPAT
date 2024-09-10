@@ -77,6 +77,7 @@
             <th>Nomor Akta</th>
             <th>Tanggal Akta</th>
             <th>Status</th>
+            <th>Pesan</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -89,9 +90,13 @@
             <td>{{ isset(json_decode($result->akta)->tanggal_akta) ? json_decode($result->akta)->tanggal_akta : 'Kosong'
               }}</td>
             <td>
+
               @switch($result->status)
-              @case("tolak")
+              @case("revisi")
               <span class="badge rounded-pill  bg-danger">Tolak</span>
+              @break
+              @case("proses")
+              <span class="badge rounded-pill  bg-warning">Proses</span>
               @break
               @case("belum")
               <span class="badge rounded-pill  bg-warning">Belum</span>
@@ -103,6 +108,7 @@
               <span class="badge rounded-pill  bg-light">Undifined</span>
               @endswitch
             </td>
+            <td>{{$result->msg}}</td>
             <td>
               <a href="{{ route('notaris.laporan_perorangan.detail', ['id' => $laporan->id, 'idPerorangan' => $result->id]) }}"
                 class="btn btn-sm btn-info">
